@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "title": "Command body",
+  "description": "Command body",
+  "properties": {
+    "CommandType": {
+      "type": "string",
+      "title": "commandType",
+      "description": "commandType"
+    },
+    "CommandParameters": {
+      "type": "array",
+      "title": "Command Parameters",
+      "description": "Command Parameters",
+      "items": {
+        "$ref": "CommandParameter.jsd"
+      }
+    }
+  },
+  "required": [
+    "CommandType"
+  ]
+}

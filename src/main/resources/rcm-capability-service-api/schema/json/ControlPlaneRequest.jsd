@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "PlaceholderControlPlaneRequest",
+  "description": "placeholder object",
+  "_meta": {
+    "message": "com.dell.cpsd.remediation.service.request",
+    "version": "1.0"
+  },
+  "properties": {
+    "messageProperties": {
+      "$ref": "includes/MessageProperties.jsd"
+    },
+    "commandBody": {
+      "$ref": "includes/CommandBody.jsd"
+    },
+    "componentBody": {
+      "$ref": "includes/ComponentBody.jsd"
+    }
+  },
+  "required": [
+    "componentBody",
+    "commandBody"
+  ]
+}
