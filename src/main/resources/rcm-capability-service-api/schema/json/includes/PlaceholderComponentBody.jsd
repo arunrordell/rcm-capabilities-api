@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "title": "Placeholder Component body",
+  "description": "Placeholder Component body",
+  "properties": {
+    "componentUuid": {
+      "type": "string",
+      "title": "componentUuid",
+      "description": "componentUuid"
+    },
+    "systemUuid": {
+      "type": "string",
+      "title": "systemUuid",
+      "description": "systemUuid"
+    },
+    "rackHdIp": {
+      "type": "string",
+      "title": "rackHdIp",
+      "description": "rackHdIp"
+    },
+    "nodeId": {
+      "type": "string",
+      "title": "nodeId",
+      "description": "nodeId"
+    },
+    "rackhdusername": {
+      "type": "string",
+      "title": "nodeId",
+      "description": "nodeId"
+    },
+    "rackhdpassword": {
+      "type": "string",
+      "title": "nodeId",
+      "description": "nodeId"
+    },
+    "componentusername": {
+      "type": "string",
+      "title": "nodeId",
+      "description": "nodeId"
+    },
+    "componentpassword": {
+      "type": "string",
+      "title": "nodeId",
+      "description": "nodeId"
+    }
+  },
+  "required": [
+    "componentUuid",
+    "systemUuid",
+    "rackHdIp",
+    "nodeId",
+    "rackhdusername",
+    "rackhdpassword",
+    "componentusername",
+    "componentpassword"
+  ]
+}

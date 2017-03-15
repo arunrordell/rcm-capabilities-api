@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "RemediationErrorMessage",
+  "description": "Message sent when an error occured.",
+  "_meta": {
+    "message": "com.dell.cpsd.remediation.service.error",
+    "version": "1.0"
+  },
+  "properties": {
+    "messageProperties": {
+      "$ref": "includes/MessageProperties.jsd"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Error",
+        "description": "Localized error message",
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Error code",
+            "description": "One of predefined error codes."
+          },
+          "message": {
+            "type": "string",
+            "title": "Error message",
+            "description": "Error details."
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "messageProperties",
+    "errors"
+  ]
+}

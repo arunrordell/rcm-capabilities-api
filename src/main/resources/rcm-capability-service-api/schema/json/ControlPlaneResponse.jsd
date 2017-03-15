@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "PlaceholderRemediationResponse",
+  "description": "Response for remediation.",
+  "_meta": {
+    "message": "com.dell.cpsd.remediation.service.response",
+    "version": "1.0"
+  },
+  "properties": {
+    "messageProperties": {
+      "$ref": "includes/MessageProperties.jsd"
+    },
+    "controlPlaneCommand": {
+      "type": "string",
+      "title": "Control plane command",
+      "description": "Control plane command."
+    },
+    "CommandParameters": {
+      "type": "array",
+      "title": "Command Parameters",
+      "description": "Command Parameters",
+      "items": {
+        "$ref": "includes/CommandParameter.jsd"
+      }
+    }
+  },
+  "required": [
+    "messageProperties",
+    "controlPlaneCommand"
+  ]
+}

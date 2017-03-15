@@ -1,0 +1,22 @@
+{
+  "messageProperties": {
+    "timestamp": "2010-01-01T12:00:00.000+0000",
+    "correlationId": "abcdabcd-abcd-abcd-abcd-abcdabcdabcd",
+    "replyTo": "paqx.localhost"
+  },
+  "controlPlaneCommand": "Status",
+  "CommandParameters": [
+    {
+      "key": "status",
+      "value": "succeeded"
+    },
+    {
+      "key": "name",
+      "value": "Dell Racadm Update Firmware Graph"
+    },
+    {
+      "key": "InstanceID",
+      "value": "b7740d6d-f433-4e9a-badd-18a6a2a8cdd5"
+    }
+  ]
+}

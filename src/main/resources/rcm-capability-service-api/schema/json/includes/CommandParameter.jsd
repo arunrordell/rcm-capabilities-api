@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "title": "Command Parameter",
+  "description": "Command Parameter",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "key",
+      "description": "key"
+    },
+    "value": {
+      "type": "string",
+      "title": "value",
+      "description": "value"
+    }
+  },
+  "required": [
+    "key",
+    "value"
+  ]
+}

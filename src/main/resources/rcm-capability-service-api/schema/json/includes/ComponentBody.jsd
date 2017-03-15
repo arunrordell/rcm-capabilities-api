@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "title": "Component body",
+  "description": "Component body",
+  "properties": {
+    "componentUuid": {
+      "type": "string",
+      "title": "componentUuid",
+      "description": "componentUuid"
+    }
+  },
+  "required": [
+    "componentUuid"
+  ]
+}
