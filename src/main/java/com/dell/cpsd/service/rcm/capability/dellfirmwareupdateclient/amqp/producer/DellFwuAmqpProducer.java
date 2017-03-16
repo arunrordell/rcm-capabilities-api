@@ -83,13 +83,13 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * {@inheritDoc}
      */
     @Override
-    public void publishDellFwuComponent(final String timestamp, final String correlationId, final String routingKey,
+    public void publishDellFwuComponent(final String timestamp, final String correlationId, final String rcmDellFwuRoutingKey,
             final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException
     {
-        MessageProperties message = new MessageProperties(this.calendar.getTime(), correlationId, "remediationapi." + this.hostname);
-        ControlPlaneResponse wrappedMessage = new ControlPlaneResponse(message, responseMessage, parameters);
+        final MessageProperties message = new MessageProperties(this.calendar.getTime(), correlationId, "remediationapi." + this.hostname);
+        final ControlPlaneResponse wrappedMessage = new ControlPlaneResponse(message, responseMessage, parameters);
 
-        this.routingKey = routingKey;
+        this.routingKey = rcmDellFwuRoutingKey;
 
         if (LOGGER.isDebugEnabled())
         {
@@ -101,7 +101,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
 
     private void logDebugPublishMessage(final String messageType, final MessageProperties message)
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         builder.append(" " + messageType + " : ");
         builder.append("exchange [").append(exchange.getName());
@@ -115,13 +115,13 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     {
         try
         {
-            LOGGER.info("In AmqpHalProducer, sending message to " + this.routingKey + "at exchange " + this.getExchange());
+            LOGGER.info("In DellFwuAmqpProducer, sending message to " + this.routingKey + "at exchange " + this.getExchange());
             rabbitTemplate.convertAndSend(exchange.getName(), this.routingKey, message);
         }
         catch (Exception exception)
         {
             final Object[] params = {message, exception.getMessage()};
-            String emessage = LOGGER.error(DellFwuMessageCode.PRODUCER_PUBLISH_E.getMessageCode(), params, exception);
+            final String emessage = LOGGER.error(DellFwuMessageCode.PRODUCER_PUBLISH_E.getMessageCode(), params, exception);
 
             throw new DellFwuServiceException(emessage, exception);
         }

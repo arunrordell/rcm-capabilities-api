@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "PlaceholderControlPlaneRequest",
-  "description": "placeholder object",
+  "description": "Placeholder ControlPane message",
   "_meta": {
-    "message": "com.dell.cpsd.remediation.service.request",
+    "message": "com.dell.cpsd.service.rcm.capability.placeholder.controlpane.request",
     "version": "1.0"
   },
   "properties": {

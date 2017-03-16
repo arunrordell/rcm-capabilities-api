@@ -22,6 +22,6 @@ import java.util.List;
  */
 public interface IDellFwuAmqpProducer
 {
-    void publishDellFwuComponent(final String timestamp, final String correlationId, final String HalRoutingKey,
+    void publishDellFwuComponent(final String timestamp, final String correlationId, final String rcmDellFwuRoutingKey,
             final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException;
 }

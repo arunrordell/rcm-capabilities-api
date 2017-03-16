@@ -77,36 +77,37 @@ public class DellFwuRabbitConfig
     /*
      * The binding key to the remediation message queue.
      */
-    private static final String BINDING_REMEDIATION_REQUEST = "com.dell.cpsd.remediation.request";
+    private static final String BINDING_REMEDIATION_REQUEST = "com.dell.cpsd.service.rcm.capability.request";
 
     /*
      * The fragment of the remediation message queue name.
      */
-    private static final String QUEUE_REMEDIATION_REQUEST = "queue.dell.cpsd.remediation.request";
+    private static final String QUEUE_REMEDIATION_REQUEST = "queue.dell.cpsd.service.rcm.capability.request";
 
     /*
      * The binding key to the remediation message queue.
      */
-    private static final String BINDING_REMEDIATION_RESPONSE = "com.dell.cpsd.remediation.response";
+    private static final String BINDING_REMEDIATION_RESPONSE = "dell.cpsd.service.rcm.capability.placeholder.controlpane.response";
 
     /*
      * The fragment of the remediation message queue name.
      */
-    private static final String QUEUE_REMEDIATION_RESPONSE    = "queue.dell.cpsd.remediation.response";
+    private static final String QUEUE_REMEDIATION_RESPONSE = "queue.dell.cpsd.service.rcm.capability.response";
+
     /*
      * The name of the remediation exchange.
      */
-    private static final String EXCHANGE_REMEDIATION_RESPONSE = "exchange.dell.cpsd.remediation.response";
+    private static final String EXCHANGE_RCM_CAPABILITY_RESPONSE = "exchange.dell.cpsd.service.rcm.capability.response";
 
     /*
-    * The routing key to the remediation request message queue.
-    */
-    public static final String ROUTING_REMEDIATION_REQUEST = "com.dell.cpsd.remediation.request";
+     * The routing key to the remediation request message queue.
+     */
+    public static final String ROUTING_REMEDIATION_REQUEST = "dell.cpsd.service.rcm.capability.placeholder.controlpane.request";
 
     /*
      * The name of the remediation data request exchange.
      */
-    private static final String EXCHANGE_REMEDIATION_REQUEST = "exchange.dell.cpsd.remediation.request";
+    private static final String EXCHANGE_RCM_CAPABILITY_REQUEST = "exchange.dell.cpsd.service.rcm.capability.request";
 
     /*
      * The RabbitMQ connection factory.
@@ -143,7 +144,7 @@ public class DellFwuRabbitConfig
     @Bean
     RabbitTemplate rabbitTemplate()
     {
-        RabbitTemplate template = new RabbitTemplate(rabbitConnectionFactory);
+        final RabbitTemplate template = new RabbitTemplate(rabbitConnectionFactory);
         template.setMessageConverter(rcmDellFwuMessageConverter());
         template.setRetryTemplate(retryTemplate());
         return template;
@@ -207,7 +208,7 @@ public class DellFwuRabbitConfig
         final DefaultClassMapper classMapper = new DefaultClassMapper();
         final Map<String, Class<?>> classMappings = new HashMap<>();
 
-        List<Class<?>> messageClasses = new ArrayList<Class<?>>();
+        final List<Class<?>> messageClasses = new ArrayList<Class<?>>();
 
         messageClasses.add(PlaceholderControlPlaneRequest.class);
         messageClasses.add(ControlPlaneResponse.class);
@@ -249,8 +250,7 @@ public class DellFwuRabbitConfig
     }
 
     /**
-     * This returns the <code>TopicExchange</code> for remediation
-     * messages.
+     * This returns the <code>TopicExchange</code> for RCM capability messages.
      *
      * @return The <code>TopicExchange</code> for remediation
      * @since 1.0
@@ -258,12 +258,12 @@ public class DellFwuRabbitConfig
     @Bean
     TopicExchange rcmDellFwuResponseExchange()
     {
-        return new TopicExchange(EXCHANGE_REMEDIATION_RESPONSE);
+        return new TopicExchange(EXCHANGE_RCM_CAPABILITY_RESPONSE);
     }
 
     /**
      * This returns the <code>TopicExchange</code> for messages from the
-     * remediation service.
+     * RCM capability service.
      *
      * @return The <code>TopicExchange</code> for message from the service.
      * @since 1.0
@@ -271,12 +271,12 @@ public class DellFwuRabbitConfig
     @Bean
     TopicExchange rcmDellFwuRequestExchange()
     {
-        return new TopicExchange(EXCHANGE_REMEDIATION_REQUEST);
+        return new TopicExchange(EXCHANGE_RCM_CAPABILITY_REQUEST);
     }
 
     /**
      * This returns the <code>Queue</code> for for messages from the
-     * remediation service.
+     * RCM capability service.
      *
      * @return The <code>Queue</code> for remediation messages.
      * @since 1.0
@@ -284,22 +284,22 @@ public class DellFwuRabbitConfig
     @Bean
     Queue rcmDellFwuQueue()
     {
-        String bindingPostFix = this.getDellFwuPostfix();
+        final String bindingPostFix = this.getDellFwuPostfix();
 
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         builder.append(QUEUE_REMEDIATION_RESPONSE);
         builder.append(".");
         builder.append(bindingPostFix);
 
-        String queueName = builder.toString();
+        final String queueName = builder.toString();
 
-        Object[] lparams = {queueName};
-        LOGGER.info(DellFwuMessageCode.HAL_QUEUE_I.getMessageCode(), lparams);
+        final Object[] lparams = {queueName};
+        LOGGER.info(DellFwuMessageCode.FWU_QUEUE_I.getMessageCode(), lparams);
 
         boolean stateful = this.consumerContextConfig.stateful();
 
-        Queue queue = new Queue(queueName, true, false, !stateful);
+        final Queue queue = new Queue(queueName, true, false, !stateful);
 
         return queue;
     }
@@ -314,18 +314,18 @@ public class DellFwuRabbitConfig
     @Bean
     public Binding rcmDellFwuQueueBinding()
     {
-        String bindingPostFix = this.getDellFwuPostfix();
+        final String bindingPostFix = this.getDellFwuPostfix();
 
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         builder.append(BINDING_REMEDIATION_RESPONSE);
         builder.append("|");
         builder.append(bindingPostFix);
 
-        String binding = builder.toString();
+        final String binding = builder.toString();
 
-        Object[] lparams = {binding};
-        LOGGER.info(DellFwuMessageCode.HAL_BINDING_I.getMessageCode());
+        final Object[] lparams = {binding};
+        LOGGER.info(DellFwuMessageCode.FWU_BINDING_I.getMessageCode());
 
         return BindingBuilder.bind(rcmDellFwuQueue()).to(rcmDellFwuResponseExchange()).with(binding);
     }

@@ -20,17 +20,17 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.produc
 public class DellFwuConfiguration implements IDellFwuConfiguration
 {
     /*
-     * The <code>IAmqpHalConsumer</code> to use.
+     * The <code>IDellFwuAmqpConsumer</code> to use.
      */
     private IDellFwuAmqpConsumer dellFwuConsumer = null;
 
     /*
-     * The <code>IAmqpHalProducer</code> to use.
+     * The <code>IDellFwuAmqpProducer</code> to use.
      */
     private IDellFwuAmqpProducer dellFwuProducer = null;
 
     /**
-     * HalConfiguration constructor
+     * DellFwuConfiguration constructor
      *
      * @param dellFwuProducer The remediation message producer.
      * @param dellFwuConsumer The remediation message consumer.

@@ -40,7 +40,7 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     private String routingKey = null;
 
     /**
-     * AmqpHalConsumer constructor
+     * DellFwuAmqpConsumer constructor
      *
      * @since 1.0
      */
@@ -105,7 +105,7 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
 
         if (this.handler == null)
         {
-            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.FWU_HANDLER_NULL_W.getMessageCode());
             return;
         }
 
@@ -128,13 +128,13 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     {
         if (message == null)
         {
-            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_ERROR_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.FWU_ERROR_NULL_W.getMessageCode());
             return;
         }
 
         if (this.handler == null)
         {
-            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.FWU_HANDLER_NULL_W.getMessageCode());
             return;
         }
 

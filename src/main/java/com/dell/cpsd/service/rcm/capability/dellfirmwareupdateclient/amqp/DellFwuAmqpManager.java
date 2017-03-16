@@ -115,7 +115,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
         final ServiceCallback<DellFwuResponse> callback = createCallback(DellFwuResponse.class);
         this.createAndAddServiceTask(requestId, callback, timeout);
 
-        // publish the list Hal validation message to the service
+        // publish the list validation message to the service
         try
         {
             LOGGER.info("Sending these across Systemuid " + systemUid + "\nrequestid " + requestId + "\nroutingkey " + this.routingKey);
