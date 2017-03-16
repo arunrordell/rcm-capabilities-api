@@ -1,9 +1,6 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.config;
@@ -21,36 +18,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
-
- *
-
+ * Client configuration.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
-
 @Configuration
 @Import({DellFwuRabbitConfig.class, DellFwuProducerConfig.class, DellFwuConsumerConfig.class})
 public class DellFwuClientConfig
 {
     @Autowired
-    private IDellFwuAmqpProducer RemediationProducer;
+    private IDellFwuAmqpProducer rcmDellFwuProducer;
     @Autowired
-    private IDellFwuAmqpConsumer RemediationConsumer;
+    private IDellFwuAmqpConsumer rcmDellFwuConsumer;
 
     @Bean
-    DellFwuAmqpManager getAmqpRemediationManager()
+    DellFwuAmqpManager getDellFwuAmqpManager()
     {
-        final DellFwuConfiguration configuration = new DellFwuConfiguration(RemediationProducer, RemediationConsumer);
+        final DellFwuConfiguration configuration = new DellFwuConfiguration(rcmDellFwuProducer, rcmDellFwuConsumer);
         return new DellFwuAmqpManager(configuration);
     }
 }

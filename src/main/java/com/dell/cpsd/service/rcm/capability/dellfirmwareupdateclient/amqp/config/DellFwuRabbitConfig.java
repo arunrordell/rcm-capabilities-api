@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+/*
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * VCE Confidential/Proprietary Information
  */
 
@@ -13,8 +13,8 @@ import com.dell.cpsd.service.common.client.context.IConsumerContextConfig;
 import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
 import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSLoggingManager;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSMessageCode;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -47,15 +47,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is the configuration for the RabbitMQ artifacts used by a client.
- *
+ * RCM - Dell Firmware Update.
+ * Configuration for the RabbitMQ artifacts used by a client.
  * <p/>
- * CCopyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * <p/>
  *
  * @version 1.0
- *
- * @since SINCE-TBD
+ * @since 1.0
  */
 @Configuration
 public class DellFwuRabbitConfig
@@ -63,7 +62,7 @@ public class DellFwuRabbitConfig
     /*
      * The logger for this class.
      */
-    private static final ILogger LOGGER = RRSLoggingManager.getLogger(DellFwuRabbitConfig.class);
+    private static final ILogger LOGGER = DellFwuLoggingManager.getLogger(DellFwuRabbitConfig.class);
 
     /*
      * The retry template information for the client.
@@ -83,10 +82,11 @@ public class DellFwuRabbitConfig
     /*
      * The fragment of the remediation message queue name.
      */
-    private static final String QUEUE_REMEDIATION_REQUEST    = "queue.dell.cpsd.remediation.request";
+    private static final String QUEUE_REMEDIATION_REQUEST = "queue.dell.cpsd.remediation.request";
+
     /*
- * The binding key to the remediation message queue.
- */
+     * The binding key to the remediation message queue.
+     */
     private static final String BINDING_REMEDIATION_RESPONSE = "com.dell.cpsd.remediation.response";
 
     /*
@@ -138,14 +138,13 @@ public class DellFwuRabbitConfig
      * This returns the RabbitMQ template used by the producer.
      *
      * @return The RabbitMQ the rabbit template used by the producer.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
     RabbitTemplate rabbitTemplate()
     {
         RabbitTemplate template = new RabbitTemplate(rabbitConnectionFactory);
-        template.setMessageConverter(RemediationMessageConverter());
+        template.setMessageConverter(rcmDellFwuMessageConverter());
         template.setRetryTemplate(retryTemplate());
         return template;
     }
@@ -155,20 +154,19 @@ public class DellFwuRabbitConfig
      * </code>.
      *
      * @return The <code>RetryTemplate</code>.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
     RetryTemplate retryTemplate()
     {
-        RetryTemplate retryTemplate = new RetryTemplate();
+        final RetryTemplate retryTemplate = new RetryTemplate();
 
-        ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
+        final ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
         backOffPolicy.setInitialInterval(INITIAL_INTERVAL);
         backOffPolicy.setMultiplier(MULTIPLIER);
         backOffPolicy.setMaxInterval(MAX_INTERVAL);
 
-        SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
+        final SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
         retryPolicy.setMaxAttempts(MAX_ATTEMPTS);
         retryTemplate.setBackOffPolicy(backOffPolicy);
         retryTemplate.setRetryPolicy(retryPolicy);
@@ -177,10 +175,10 @@ public class DellFwuRabbitConfig
     }
 
     @Bean
-    public MessageConverter RemediationMessageConverter()
+    public MessageConverter rcmDellFwuMessageConverter()
     {
-        Jackson2JsonMessageConverter messageConverter = new Jackson2JsonMessageConverter();
-        messageConverter.setClassMapper(RemediationClassMapper());
+        final Jackson2JsonMessageConverter messageConverter = new Jackson2JsonMessageConverter();
+        messageConverter.setClassMapper(rcmDellFwuClassMapper());
         messageConverter.setCreateMessageIds(true);
 
         final ObjectMapper objectMapper = new ObjectMapper();
@@ -200,11 +198,10 @@ public class DellFwuRabbitConfig
      * This returns the <code>ClassMapper</code> for the message converter.
      *
      * @return The <ocde>ClassMapper</code> for the message converter.
-     *
      * @since SINCE-TBD
      */
     @Bean
-    ClassMapper RemediationClassMapper()
+    ClassMapper rcmDellFwuClassMapper()
     {
         //stub
         final DefaultClassMapper classMapper = new DefaultClassMapper();
@@ -236,8 +233,7 @@ public class DellFwuRabbitConfig
      * This returns the host name for the client.
      *
      * @return The host name for the client.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
     String hostName()
@@ -257,11 +253,10 @@ public class DellFwuRabbitConfig
      * messages.
      *
      * @return The <code>TopicExchange</code> for remediation
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
-    TopicExchange RemediationExchangeResponse()
+    TopicExchange rcmDellFwuResponseExchange()
     {
         return new TopicExchange(EXCHANGE_REMEDIATION_RESPONSE);
     }
@@ -271,11 +266,10 @@ public class DellFwuRabbitConfig
      * remediation service.
      *
      * @return The <code>TopicExchange</code> for message from the service.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
-    TopicExchange DellFwuRequestExchange()
+    TopicExchange rcmDellFwuRequestExchange()
     {
         return new TopicExchange(EXCHANGE_REMEDIATION_REQUEST);
     }
@@ -285,11 +279,10 @@ public class DellFwuRabbitConfig
      * remediation service.
      *
      * @return The <code>Queue</code> for remediation messages.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
-    Queue RemediationQueue()
+    Queue rcmDellFwuQueue()
     {
         String bindingPostFix = this.getDellFwuPostfix();
 
@@ -302,7 +295,7 @@ public class DellFwuRabbitConfig
         String queueName = builder.toString();
 
         Object[] lparams = {queueName};
-        LOGGER.info(RRSMessageCode.HAL_QUEUE_I.getMessageCode(), lparams);
+        LOGGER.info(DellFwuMessageCode.HAL_QUEUE_I.getMessageCode(), lparams);
 
         boolean stateful = this.consumerContextConfig.stateful();
 
@@ -316,11 +309,10 @@ public class DellFwuRabbitConfig
      * queue and exchange.
      *
      * @return The <code>Binding</code> for the remediation message queue.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
-    public Binding RemediationQueueBinding()
+    public Binding rcmDellFwuQueueBinding()
     {
         String bindingPostFix = this.getDellFwuPostfix();
 
@@ -333,25 +325,16 @@ public class DellFwuRabbitConfig
         String binding = builder.toString();
 
         Object[] lparams = {binding};
-        LOGGER.info(RRSMessageCode.HAL_BINDING_I.getMessageCode());
+        LOGGER.info(DellFwuMessageCode.HAL_BINDING_I.getMessageCode());
 
-        return BindingBuilder.bind(RemediationQueue()).to(RemediationExchangeResponse()).with(binding);
+        return BindingBuilder.bind(rcmDellFwuQueue()).to(rcmDellFwuResponseExchange()).with(binding);
     }
-
-    /**
-     * The returns the routing key for the remediation request message queue.
-     *
-     * @return The routing key for the remediation request message queue.
-     *
-     * @since SINCE-TBD
-     */
 
     /**
      * This returns the <code>AmqpAdmin</code> for the connection factory.
      *
      * @return The AMQP admin object for the connection factory.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     @Bean
     AmqpAdmin amqpAdmin()
@@ -359,13 +342,12 @@ public class DellFwuRabbitConfig
         return new RabbitAdmin(rabbitConnectionFactory);
     }
 
-    /*
+    /**
      * This returns the generated postfix that is appended to the compliance
      * data message queue and exchange binding.
      *
-     * @return  The generated compute result postfix.
-     *
-     * @since   SINCE-TBD
+     * @return The generated compute result postfix.
+     * @since 1.0
      */
     private String getDellFwuPostfix()
     {

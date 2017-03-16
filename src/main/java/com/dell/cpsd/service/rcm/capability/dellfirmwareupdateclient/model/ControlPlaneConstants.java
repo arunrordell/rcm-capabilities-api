@@ -1,31 +1,19 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
-package com.dell.cpsd.remediation.service.client.model;
+package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.model;
 
 /**
-
- *
-
+ * Control Plane Constants / enums.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
-
 public class ControlPlaneConstants
 {
 
@@ -33,37 +21,36 @@ public class ControlPlaneConstants
     {
         DELL_SERVER_R730("Dell server R730");
 
-        private ComponentType(String name)
+        private final String name;
+
+        ComponentType(final String name)
         {
             this.name = name;
         }
-
-        private final String name;
-    }
-
-    public enum CommandType
-    {
-
-        FIRMWARE_UPDATE("UpdateFirmware"),
-        FAKE_FIRMWARE_UPDATE("FakeFirmwareUpdate"),
-        GET_STATUS("Status");
-
-        private CommandType(String name)
-        {
-            this.name = name;
-        }
-
-        private final String name;
 
         @Override
         public String toString()
         {
             return name;
         }
+    }
 
-        public static CommandType findCommandTypeFromString(String type)
+    public enum CommandType
+    {
+        FIRMWARE_UPDATE("UpdateFirmware"),
+        FAKE_FIRMWARE_UPDATE("FakeFirmwareUpdate"),
+        GET_STATUS("Status");
+
+        private final String name;
+
+        CommandType(final String name)
         {
-            for (CommandType t : values())
+            this.name = name;
+        }
+
+        public static CommandType findCommandTypeFromString(final String type)
+        {
+            for (final CommandType t : values())
             {
                 if (t.toString().compareTo(type) == 0)
                 {
@@ -72,22 +59,29 @@ public class ControlPlaneConstants
             }
             return null;
         }
-    }
-
-    public enum SubComponentType
-    {
-        BIOS("BIOS");
-        private final String name;
 
         @Override
         public String toString()
         {
             return name;
         }
+    }
 
-        private SubComponentType(String name)
+    public enum SubComponentType
+    {
+        BIOS("BIOS");
+
+        private final String name;
+
+        SubComponentType(String name)
         {
             this.name = name;
+        }
+
+        @Override
+        public String toString()
+        {
+            return name;
         }
     }
 
@@ -95,17 +89,18 @@ public class ControlPlaneConstants
     {
         FILEPATH("FilePath"),
         INSTANCE_ID("InstanceId");
+
         private final String name;
+
+        CommandParameterType(final String name)
+        {
+            this.name = name;
+        }
 
         @Override
         public String toString()
         {
             return name;
-        }
-
-        private CommandParameterType(String name)
-        {
-            this.name = name;
         }
     }
 

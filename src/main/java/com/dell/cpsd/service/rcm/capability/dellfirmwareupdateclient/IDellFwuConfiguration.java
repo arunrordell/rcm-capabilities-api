@@ -1,9 +1,6 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient;
@@ -12,42 +9,31 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consum
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer.IDellFwuAmqpProducer;
 
 /**
-
- *
-
+ * Configuration interface.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
-
 public interface IDellFwuConfiguration
 {
     /**
-     * This returns the <code>IAmqpHalConsumer</code> bean from the
+     * This returns the <code>IDellFwuAmqpConsumer</code> bean from the
      * application context.
      *
-     * @return The <code>IAmqpHalConsumer</code> bean.
-     *
+     * @return The <code>IDellFwuAmqpConsumer</code> bean.
      * @since 1.0
      */
-    public IDellFwuAmqpConsumer getDellFwuConsumer();
+    IDellFwuAmqpConsumer getDellFwuConsumer();
 
     /**
-     * This returns the <code>IAmqpHalProducer</code> bean from the
+     * This returns the <code>IDellFwuAmqpProducer</code> bean from the
      * application context.
      *
-     * @return The <code>IAmqpHalProducer</code> bean.
-     *
+     * @return The <code>IDellFwuAmqpProducer</code> bean.
      * @since 1.0
      */
-    public IDellFwuAmqpProducer getDellFwuProducer();
+    IDellFwuAmqpProducer getDellFwuProducer();
 }

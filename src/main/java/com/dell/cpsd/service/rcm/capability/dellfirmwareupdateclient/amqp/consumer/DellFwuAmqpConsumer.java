@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+/*
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * VCE Confidential/Proprietary Information
  */
 
@@ -9,27 +9,25 @@ import com.dell.cpsd.common.logging.ILogger;
 import com.dell.cpsd.common.rabbitmq.consumer.UnhandledMessageConsumer;
 import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSLoggingManager;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSMessageCode;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 
 /**
- * This is the message consumer that handles responses from the Hal
+ * This is the message consumer that handles responses from the Remediation service.
  * service.
- *
  * <p/>
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * <p/>
  *
  * @version 1.0
- *
- * @since SINCE-TBD
+ * @since 1.0
  */
 public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDellFwuAmqpConsumer
 {
     /*
      * The logger for this class.
      */
-    private static final ILogger LOGGER = RRSLoggingManager.getLogger(DellFwuAmqpConsumer.class);
+    private static final ILogger LOGGER = DellFwuLoggingManager.getLogger(DellFwuAmqpConsumer.class);
 
     /*
      * The <code>IAmqpRemediationMessageHandler</code> that handles messages.
@@ -44,7 +42,7 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     /**
      * AmqpHalConsumer constructor
      *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public DellFwuAmqpConsumer(final String routingKey)
     {
@@ -80,7 +78,7 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
      * {@inheritDoc}
      */
     @Override
-    public void setDellFwuMessageHandler(IDellFwuAmqpMessageHandler handler)
+    public void setDellFwuMessageHandler(final IDellFwuAmqpMessageHandler handler)
     {
         if (handler == null)
         {
@@ -91,24 +89,23 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     }
 
     /**
-     * This handles the <code>ValidateComponentsResultMessage</code> that is
-     * consumed from the Hal queue.
+     * This handles the <code>PlaceholderControlPlaneRequest</code> that is
+     * consumed from the Remediation queue.
      *
-     * @param   message  The <code>SystemComplianceDataMessage</code> to consume.
-     *
-     * @since SINCE-TBD
+     * @param message The <code>PlaceholderControlPlaneRequest</code> to consume.
+     * @since 1.0
      */
     public void handleMessage(final PlaceholderControlPlaneRequest message)
     {
         if (message == null)
         {
-            LOGGER.warn(RRSMessageCode.SYSTEM_COMPLIANCE_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.SYSTEM_COMPLIANCE_NULL_W.getMessageCode());
             return;
         }
 
         if (this.handler == null)
         {
-            LOGGER.warn(RRSMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
             return;
         }
 
@@ -121,24 +118,23 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     }
 
     /**
-     * This handles the <code>ComplianceDataErrorMessage</code> that is consumed
-     * from the Hal queue.
+     * This handles the <code>RemediationErrorMessage</code> that is consumed
+     * from the Remediation queue.
      *
-     * @param   message  The <code>ComplianceDataErrorMessage</code> to consume.
-     *
-     * @since SINCE-TBD
+     * @param message The <code>RemediationErrorMessage</code> to consume.
+     * @since 1.0
      */
     public void handleMessage(final RemediationErrorMessage message)
     {
         if (message == null)
         {
-            LOGGER.warn(RRSMessageCode.COMPLIANCE_ERROR_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_ERROR_NULL_W.getMessageCode());
             return;
         }
 
         if (this.handler == null)
         {
-            LOGGER.warn(RRSMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
+            LOGGER.warn(DellFwuMessageCode.COMPLIANCE_HANDLER_NULL_W.getMessageCode());
             return;
         }
 

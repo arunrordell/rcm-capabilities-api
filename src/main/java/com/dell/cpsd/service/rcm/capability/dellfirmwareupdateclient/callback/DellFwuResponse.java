@@ -1,9 +1,6 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.callback;
@@ -12,32 +9,23 @@ import com.dell.cpsd.service.common.client.callback.ServiceResponse;
 import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
 
 /**
-
- *
-
+ * Dell Firmware update response.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
 
 public class DellFwuResponse extends ServiceResponse<ControlPlaneResponse>
 {
     /**
-     * HalResponse constructor
+     * DellFwuResponse constructor
      *
-     * @param   requestId   The request identifier.
-     * @param   response    The reponse data.
-     *
-     * @since SINCE-TDB
+     * @param requestId The request identifier.
+     * @param response  The reponse data.
+     * @since 1.0
      */
     public DellFwuResponse(final String requestId, final ControlPlaneResponse response)
     {

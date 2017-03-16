@@ -1,9 +1,6 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer;
@@ -13,43 +10,31 @@ import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 
 /**
-
- *
-
+ * Dell Firmware update message handler interface.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
-
 public interface IDellFwuAmqpMessageHandler
 {
     /**
-     * This handles the processing of a <code>RemediationMessage</code>.
+     * This handles the processing of a <code>PlaceholderControlPlaneRequest</code>.
      *
-     * @param   message  The <code>RemediationMessage</code> to process.
-     *
-     * @since SINCE-TBD
+     * @param message The <code>PlaceholderControlPlaneRequest</code> to process.
+     * @since 1.0
      */
-    public void handleDellFwuRequest(PlaceholderControlPlaneRequest message);
+    void handleDellFwuRequest(PlaceholderControlPlaneRequest message);
 
-    public void handleDellFwuResponse(ControlPlaneResponse message);
+    void handleDellFwuResponse(ControlPlaneResponse message);
 
     /**
-     * This handles the processing of a <code>DellFwuErrorMessage</code>.
+     * This handles the processing of a <code>RemediationErrorMessage</code>.
      *
-     * @param   message  The <code>DellFwuErrorMessage</code> to process.
-     *
-     * @since SINCE-TBD
+     * @param message The <code>RemediationErrorMessage</code> to process.
+     * @since 1.0
      */
-
-    public void handleDellFwuError(RemediationErrorMessage message);
+    void handleDellFwuError(RemediationErrorMessage message);
 }
