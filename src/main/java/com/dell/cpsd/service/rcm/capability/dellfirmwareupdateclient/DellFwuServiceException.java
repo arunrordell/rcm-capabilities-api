@@ -1,38 +1,25 @@
-/**
-
+/*
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
-
  * VCE Confidential/Proprietary Information
-
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient;
 
 /**
-
- *
-
+ * Dell Firmware Update Service client exception.
  * <p>
-
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved. 
-
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * VCE Confidential/Proprietary Information
-
  * </p>
-
  *
-
- * @since Vision x.y.z
-
+ * @since 1.0
  */
-
 public class DellFwuServiceException extends Exception
 {
-
     /**
-     * HalServiceException constructor.
+     * Default constructor.
      *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public DellFwuServiceException()
     {
@@ -40,38 +27,35 @@ public class DellFwuServiceException extends Exception
     }
 
     /**
-     * HalServiceException constructor.
+     * DellFwuServiceException constructor.
      *
-     * @param   cause  The cause of the exception.
-     *
-     * @since SINCE-TBD
+     * @param cause The cause of the exception.
+     * @since 1.0
      */
-    public DellFwuServiceException(Throwable cause)
+    public DellFwuServiceException(final Throwable cause)
     {
         super(cause);
     }
 
     /**
-     * HalServiceException constructor.
+     * DellFwuServiceException constructor.
      *
-     * @param   message  The exception message.
-     *
-     * @since SINCE-TBD
+     * @param message The exception message.
+     * @since 1.0
      */
-    public DellFwuServiceException(String message)
+    public DellFwuServiceException(final String message)
     {
         super(message);
     }
 
     /**
-     * HalServiceException constructor.
+     * DellFwuServiceException constructor.
      *
-     * @param   message  The exception message.
-     * @param   cause    The cause of the exception.
-     *
-     * @since SINCE-TBD
+     * @param message The exception message.
+     * @param cause   The cause of the exception.
+     * @since 1.0
      */
-    public DellFwuServiceException(String message, Throwable cause)
+    public DellFwuServiceException(final String message, final Throwable cause)
     {
         super(message, cause);
     }

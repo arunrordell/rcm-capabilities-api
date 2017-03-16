@@ -4,7 +4,7 @@
   "title": "RemediationErrorMessage",
   "description": "Message sent when an error occured.",
   "_meta": {
-    "message": "com.dell.cpsd.remediation.service.error",
+    "message": "com.dell.cpsd.service.rcm.capability.error",
     "version": "1.0"
   },
   "properties": {

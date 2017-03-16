@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+/*
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * VCE Confidential/Proprietary Information
  */
 
@@ -10,23 +10,18 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServ
 
 import java.util.List;
 
-;
-
 /**
- * This interface should be implemented by a producer of compliance data
- * request messages.
- *
+ * This interface should be implemented by a producer of remediation request messages.
+ * <p>
  * <p/>
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * <p/>
  *
  * @version 1.0
- *
- * @since SINCE-TBD
+ * @since 1.0
  */
 public interface IDellFwuAmqpProducer
 {
-    public void publishDellFwuComponent(final String timestamp, final String correlationId, final String HalRoutingKey,
-            final String responseMessage, List<CommandParameter> parameters) throws DellFwuServiceException;
-
+    void publishDellFwuComponent(final String timestamp, final String correlationId, final String rcmDellFwuRoutingKey,
+            final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException;
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+/*
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * VCE Confidential/Proprietary Information
  */
 
@@ -10,8 +10,8 @@ import com.dell.cpsd.service.rcm.capability.CommandParameter;
 import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
 import com.dell.cpsd.service.rcm.capability.MessageProperties;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSLoggingManager;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSMessageCode;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
@@ -19,23 +19,20 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * This is the message producer that sends messages to the compliance data
- * service.
- *
+ * This is the message producer that sends messages to the remediation service.
  * <p/>
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * <p/>
  *
  * @version 1.0
- *
- * @since SINCE-TBD
+ * @since 1.0
  */
 public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
 {
     /*
      * The logger for this class.
      */
-    private static final ILogger LOGGER = RRSLoggingManager.getLogger(DellFwuAmqpProducer.class);
+    private static final ILogger LOGGER = DellFwuLoggingManager.getLogger(DellFwuAmqpProducer.class);
 
     /*
      * The RabbitMQ template used by the producer.
@@ -43,12 +40,12 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     private RabbitTemplate rabbitTemplate;
 
     /*
-     * The compliance data request <code>Exchange</code>.
+     * The remediation request <code>Exchange</code>.
      */
     private Exchange exchange;
 
     /*
-     * The routing key for the compliance data request queue.
+     * The routing key for the remediation request queue.
      */
     private String routingKey = null;
 
@@ -63,29 +60,22 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     private Calendar calendar = null;
 
     /**
-     * AmqpHalProducer constructor.
+     * DellFwuAmqpProducer constructor.
      *
-     * @param   rabbitTemplate  The RabbitMQ template.
-     * @param   exchange        The compliance data request exchange.
-     * @param   routingKey      The compliance data request routing key.
-     * @param   hostname        The host name of the client.
-     *
-     * @throws IllegalArgumentException  Thrown if the parameters are null.
-     *
-     * @since SINCE-TBD
+     * @param rabbitTemplate The RabbitMQ template.
+     * @param exchange       The compliance data request exchange.
+     * @param routingKey     The compliance data request routing key.
+     * @param hostname       The host name of the client.
+     * @throws IllegalArgumentException Thrown if the parameters are null.
+     * @since 1.0
      */
-    public DellFwuAmqpProducer(RabbitTemplate rabbitTemplate, Exchange exchange, String routingKey, String hostname)
+    public DellFwuAmqpProducer(final RabbitTemplate rabbitTemplate, final Exchange exchange, final String routingKey, final String hostname)
     {
         super();
-
         this.calendar = Calendar.getInstance();
-
         this.setRabbitTemplate(rabbitTemplate);
-
         this.setExchange(exchange);
-
         this.setHostname(hostname);
-
         this.setRoutingKey(routingKey);
     }
 
@@ -93,13 +83,13 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * {@inheritDoc}
      */
     @Override
-    public void publishDellFwuComponent(final String timestamp, final String correlationId, final String routingKey,
-            final String responseMessage, List<CommandParameter> parameters) throws DellFwuServiceException
+    public void publishDellFwuComponent(final String timestamp, final String correlationId, final String rcmDellFwuRoutingKey,
+            final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException
     {
-        MessageProperties message = new MessageProperties(this.calendar.getTime(), correlationId, "remediationapi." + this.hostname);
-        ControlPlaneResponse wrappedMessage = new ControlPlaneResponse(message, responseMessage, parameters);
+        final MessageProperties message = new MessageProperties(this.calendar.getTime(), correlationId, "remediationapi." + this.hostname);
+        final ControlPlaneResponse wrappedMessage = new ControlPlaneResponse(message, responseMessage, parameters);
 
-        this.routingKey = routingKey;
+        this.routingKey = rcmDellFwuRoutingKey;
 
         if (LOGGER.isDebugEnabled())
         {
@@ -109,14 +99,9 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
         sendMessage(wrappedMessage);
     }
 
-    /**
-     *
-     * @param messageType
-     * @param message
-     */
-    private void logDebugPublishMessage(String messageType, MessageProperties message)
+    private void logDebugPublishMessage(final String messageType, final MessageProperties message)
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
         builder.append(" " + messageType + " : ");
         builder.append("exchange [").append(exchange.getName());
@@ -130,13 +115,13 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     {
         try
         {
-            LOGGER.info("In AmqpHalProducer, sending message to " + this.routingKey + "at exchange " + this.getExchange());
+            LOGGER.info("In DellFwuAmqpProducer, sending message to " + this.routingKey + "at exchange " + this.getExchange());
             rabbitTemplate.convertAndSend(exchange.getName(), this.routingKey, message);
         }
         catch (Exception exception)
         {
-            Object[] params = {message, exception.getMessage()};
-            String emessage = LOGGER.error(RRSMessageCode.PRODUCER_PUBLISH_E.getMessageCode(), params, exception);
+            final Object[] params = {message, exception.getMessage()};
+            final String emessage = LOGGER.error(DellFwuMessageCode.PRODUCER_PUBLISH_E.getMessageCode(), params, exception);
 
             throw new DellFwuServiceException(emessage, exception);
         }
@@ -147,8 +132,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * queue for this producer.
      *
      * @return The routing key for the compliance data request message queue.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public String getRoutingKey()
     {
@@ -159,13 +143,11 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * This sets the routing key for the compliance data request message queue
      * for this producer.
      *
-     * @param   routingKey  The routing key for the message queue.
-     *
-     * @throws IllegalArgumentException  Thrown if the routing key is null.
-     *
-     * @since SINCE-TBD
+     * @param routingKey The routing key for the message queue.
+     * @throws IllegalArgumentException Thrown if the routing key is null.
+     * @since 1.0
      */
-    public void setRoutingKey(String routingKey)
+    public void setRoutingKey(final String routingKey)
 
     {
         if (routingKey == null)
@@ -180,8 +162,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * This returns the <code>Exchange</code> for this producer.
      *
      * @return The <code>Exchange</code> for this producer.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public Exchange getExchange()
     {
@@ -191,13 +172,11 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     /**
      * This sets the <code>Exchange</code> for this producer.
      *
-     * @param   exchange  The <code>Exchange</code> for this producer.
-     *
-     * @throws IllegalArgumentException  Thrown if the exchange is null.
-     *
-     * @since SINCE-TBD
+     * @param exchange The <code>Exchange</code> for this producer.
+     * @throws IllegalArgumentException Thrown if the exchange is null.
+     * @since 1.0
      */
-    public void setExchange(Exchange exchange)
+    public void setExchange(final Exchange exchange)
     {
         if (exchange == null)
         {
@@ -211,8 +190,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * This returns the <code>RabbitTemplate</code> for this producer.
      *
      * @return The <code>RabbitTemplate</code> for this producer.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public RabbitTemplate getRabbitTemplate()
     {
@@ -222,13 +200,11 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     /**
      * This sets the <code>RabbitTemplate</code> for this producer.
      *
-     * @param   rabbitTemplate  The <code>RabbitTemplate</code> for this producer.
-     *
-     * @throws IllegalArgumentException  Thrown if the template is null.
-     *
-     * @since SINCE-TBD
+     * @param rabbitTemplate The <code>RabbitTemplate</code> for this producer.
+     * @throws IllegalArgumentException Thrown if the template is null.
+     * @since 1.0
      */
-    public void setRabbitTemplate(RabbitTemplate rabbitTemplate)
+    public void setRabbitTemplate(final RabbitTemplate rabbitTemplate)
     {
         if (rabbitTemplate == null)
         {
@@ -242,8 +218,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
      * This returns the host name of the client.
      *
      * @return The host name of the client.
-     *
-     * @since SINCE-TBD
+     * @since 1.0
      */
     public String getHostname()
     {
@@ -253,13 +228,11 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
     /**
      * This sets the host name of the client.
      *
-     * @param   hostname  The host name of the client.
-     *
-     * @throws IllegalArgumentException  Thrown if the host name is null.
-     *
-     * @since SINCE-TBD
+     * @param hostname The host name of the client.
+     * @throws IllegalArgumentException Thrown if the host name is null.
+     * @since 1.0
      */
-    public void setHostname(String hostname)
+    public void setHostname(final String hostname)
     {
         if (hostname == null)
         {

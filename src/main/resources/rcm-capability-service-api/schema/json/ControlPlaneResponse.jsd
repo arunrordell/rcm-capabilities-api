@@ -4,7 +4,7 @@
   "title": "PlaceholderRemediationResponse",
   "description": "Response for remediation.",
   "_meta": {
-    "message": "com.dell.cpsd.remediation.service.response",
+    "message": "com.dell.cpsd.service.rcm.capability.response",
     "version": "1.0"
   },
   "properties": {

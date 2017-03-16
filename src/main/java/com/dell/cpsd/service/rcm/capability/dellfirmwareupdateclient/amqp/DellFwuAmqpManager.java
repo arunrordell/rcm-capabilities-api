@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+/*
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * VCE Confidential/Proprietary Information
  */
 
@@ -25,26 +25,24 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consum
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpMessageHandler;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer.IDellFwuAmqpProducer;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.callback.DellFwuResponse;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSLoggingManager;
-import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.RRSMessageCode;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
+import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
 /**
  * This class is responsible for sending and processing messages to and from
  * the Remediation service.
- *
+ * <p>
  * <p/>
- * Copyright © 2016 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
  * <p/>
  *
  * @version 1.0
- *
- * @since SINCE-TBD
+ * @since 1.0
  */
 @Component
 public class DellFwuAmqpManager extends AbstractServiceCallbackManager implements IDellFwuAmqpMessageHandler
@@ -52,7 +50,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     /*
      * The logger for this class.
      */
-    private static final ILogger LOGGER = RRSLoggingManager.getLogger(DellFwuAmqpManager.class);
+    private static final ILogger LOGGER = DellFwuLoggingManager.getLogger(DellFwuAmqpManager.class);
 
     /*
      * The routing key for the compute result message queue used by the consumer
@@ -65,25 +63,23 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     private IDellFwuConfiguration configuration = null;
 
     /*
-     * The Hal message producer
+     * The DellFwu message producer
      */
-    private IDellFwuAmqpProducer DellFwuProducer = null;
+    private IDellFwuAmqpProducer rcmDellFwuProducer = null;
 
     /*
-     * The Hal message consumer
+     * The DellFwu message consumer
      */
-    private IDellFwuAmqpConsumer DellFwuConsumer = null;
+    private IDellFwuAmqpConsumer rcmDellFwuConsumer = null;
 
     /**
-     * AmqpHalManager constructor.
+     * DellFwuAmqpManager constructor.
      *
-     * @param   configuration  The configuration used by this manager.
-     *
-     * @throws IllegalArgumentException  Thrown if the configuration is null.
-     *
-     * @since SINCE-TBD
+     * @param configuration The configuration used by this manager.
+     * @throws IllegalArgumentException Thrown if the configuration is null.
+     * @since 1.0
      */
-    public DellFwuAmqpManager(IDellFwuConfiguration configuration)
+    public DellFwuAmqpManager(final IDellFwuConfiguration configuration)
     {
         super();
 
@@ -93,30 +89,22 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
         }
 
         this.configuration = configuration;
-
-        this.setDellFwuConsumer(configuration.getDellFwuConsumer());
-
-        this.setHalProducer(configuration.getDellFwuProducer());
-
-        this.setRoutingKey(this.DellFwuConsumer.getRoutingKey());
-
-        this.DellFwuConsumer.setDellFwuMessageHandler(this);
+        this.setRcmDellFwuConsumer(configuration.getDellFwuConsumer());
+        this.setRemediationProducer(configuration.getDellFwuProducer());
+        this.setRoutingKey(this.rcmDellFwuConsumer.getRoutingKey());
+        this.rcmDellFwuConsumer.setDellFwuMessageHandler(this);
     }
 
     /**
-     * This returns the compliance data for the specified system.
+     * This returns the remediation data.
      *
-     * @param   systemUid   The uid of the system.
-     *
-     * @return The compliance data for the specified system.
-     *
+     * @param systemUid The uid of the system.
+     * @return The remediation response.
      * @throws DellFwuServiceException Thrown if the request fails.
-     * @throws ServiceTimeoutException   Thrown if the request fails.
-     *
-     * @since SINCE-TDB
+     * @throws ServiceTimeoutException Thrown if the request fails.
+     * @since 1.0
      */
-    public DellFwuResponse getDellFwu(final String systemUid, final long timeout)
-            throws DellFwuServiceException, ServiceTimeoutException
+    public DellFwuResponse getDellFwu(final String systemUid, final long timeout) throws DellFwuServiceException, ServiceTimeoutException
     {
         nullCheck("system", systemUid);
 
@@ -124,19 +112,16 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
 
         // create a correlation identifier for the operation
         final String requestId = this.createRequestId();
-
         final ServiceCallback<DellFwuResponse> callback = createCallback(DellFwuResponse.class);
-
         this.createAndAddServiceTask(requestId, callback, timeout);
 
-        // publish the list Hal validation message to the service
+        // publish the list validation message to the service
         try
         {
             LOGGER.info("Sending these across Systemuid " + systemUid + "\nrequestid " + requestId + "\nroutingkey " + this.routingKey);
             List<CommandParameter> parameters = new ArrayList<>();
-            this.DellFwuProducer
-                    .publishDellFwuComponent(systemUid, requestId, DellFwuRabbitConfig.ROUTING_REMEDIATION_REQUEST, "command",
-                            parameters);
+            this.rcmDellFwuProducer
+                    .publishDellFwuComponent(systemUid, requestId, DellFwuRabbitConfig.ROUTING_REMEDIATION_REQUEST, "command", parameters);
         }
         catch (Exception exception)
         {
@@ -148,7 +133,6 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
 
         // wait from the response from the service
         this.waitForServiceCallback(callback, requestId, timeout);
-
         this.checkForServiceError(callback);
 
         // if there was no compute error, then return the compute result
@@ -156,20 +140,19 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     }
 
     @Override
-    public void handleDellFwuRequest(PlaceholderControlPlaneRequest request)
+    public void handleDellFwuRequest(final PlaceholderControlPlaneRequest request)
     {
 
     }
 
     /**
-     * This handles the processing of a <code>HalMessage</code>.
+     * This handles the processing of a <code>ControlPlaneResponse</code>.
      *
-     * @param   result  The <code>HalMessage</code> to process.
-     *
-     * @since SINCE-TBD
+     * @param result The <code>ControlPlaneResponse</code> to process.
+     * @since 1.0
      */
     @Override
-    public void handleDellFwuResponse(ControlPlaneResponse result)
+    public void handleDellFwuResponse(final ControlPlaneResponse result)
     {
         if (result == null)
         {
@@ -177,7 +160,6 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
         }
 
         final String correlationId = result.getMessageProperties().getCorrelationId();
-
         final IServiceCallback<?> callback = this.removeServiceCallback(correlationId);
 
         if (callback == null)
@@ -195,20 +177,19 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
         catch (Exception exception)
         {
             // log the exception thrown by the compute callback
-            Object[] lparams = {"handleValidateComponentsResult", exception.getMessage()};
-            LOGGER.error(RRSMessageCode.ERROR_CALLBACK_FAIL_E.getMessageCode(), lparams, exception);
+            final Object[] lparams = {"handleDellFwuResponse", exception.getMessage()};
+            LOGGER.error(DellFwuMessageCode.ERROR_CALLBACK_FAIL_E.getMessageCode(), lparams, exception);
         }
     }
 
     /**
-     * This handles the processing of a <code>HalErrorMessage</code>.
+     * This handles the processing of a <code>RemediationErrorMessage</code>.
      *
-     * @param   message  The <code>HalErrorMessage</code> to process.
-     *
-     * @since SINCE-TBD
+     * @param message The <code>RemediationErrorMessage</code> to process.
+     * @since 1.0
      */
     @Override
-    public void handleDellFwuError(RemediationErrorMessage message)
+    public void handleDellFwuError(final RemediationErrorMessage message)
     {
         if (message == null)
         {
@@ -237,8 +218,8 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
         catch (Exception exception)
         {
             // log the exception thrown by the callback
-            Object[] lparams = {"handleServiceError", exception.getMessage()};
-            LOGGER.error(RRSMessageCode.ERROR_CALLBACK_FAIL_E.getMessageCode(), lparams, exception);
+            final Object[] lparams = {"handleServiceError", exception.getMessage()};
+            LOGGER.error(DellFwuMessageCode.ERROR_CALLBACK_FAIL_E.getMessageCode(), lparams, exception);
         }
     }
 
@@ -251,7 +232,6 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     public void release()
     {
         super.release();
-
         this.configuration = null;
     }
 
@@ -260,8 +240,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
      * consume responses or error messages.
      *
      * @return The routing key.
-     *
-     * @since Vision 3.x.x
+     * @since 1.0
      */
     public String getRoutingKey()
     {
@@ -272,13 +251,11 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
      * This sets the compute result routing key used by the service consumer to
      * consume responses or error messages.
      *
-     * @param   routingKey  The routing key.
-     *
-     * @throws IllegalArgumentException  Thrown if the routing key is null.
-     *
-     * @since Vision 3.x.x
+     * @param routingKey The routing key.
+     * @throws IllegalArgumentException Thrown if the routing key is null.
+     * @since 1.0
      */
-    public void setRoutingKey(String routingKey)
+    public void setRoutingKey(final String routingKey)
     {
         if (routingKey == null)
         {
@@ -289,72 +266,66 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     }
 
     /**
-     * This returns the Hal message producer.
+     * This returns the Remediation message producer.
      *
-     * @return The Hal message producer.
-     *
-     * @since SINCE-TBD
+     * @return The Remediation message producer.
+     * @since 1.0
      */
-    public IDellFwuAmqpProducer getHalProducer()
+    public IDellFwuAmqpProducer getRcmDellFwuProducer()
     {
-        return this.DellFwuProducer;
+        return this.rcmDellFwuProducer;
     }
 
     /**
-     * This sets the Hal message producer.
+     * This sets the Remediation message producer.
      *
-     * @param   HalProducer  The Hal producer.
-     *
-     * @throws IllegalArgumentException    Thrown if the producer is null.
-     *
-     * @since SINCE-TBD
+     * @param rcmDellFwuProducer The Remediation producer.
+     * @throws IllegalArgumentException Thrown if the producer is null.
+     * @since 1.0
      */
-    protected void setHalProducer(final IDellFwuAmqpProducer HalProducer)
+    protected void setRemediationProducer(final IDellFwuAmqpProducer rcmDellFwuProducer)
     {
-        if (HalProducer == null)
+        if (rcmDellFwuProducer == null)
         {
             throw new IllegalArgumentException("The Remediation producer is null.");
         }
 
-        this.DellFwuProducer = HalProducer;
+        this.rcmDellFwuProducer = rcmDellFwuProducer;
     }
 
     /**
-     * This returns the Hal message consumer.
+     * This returns the Remediation message consumer.
      *
-     * @return The Hal message consumer.
-     *
-     * @since SINCE-TBD
+     * @return The Remediation message consumer.
+     * @since 1.0
      */
-    public IDellFwuAmqpConsumer getHalConsumer()
+    public IDellFwuAmqpConsumer getRcmDellFwuConsumer()
     {
-        return this.DellFwuConsumer;
+        return this.rcmDellFwuConsumer;
     }
 
     /**
-     * This sets the Hal message consumer.
+     * This sets the Remediation message consumer.
      *
-     * @param   RemediationConsumer  The Hal consumer.
-     *
-     * @throws IllegalArgumentException    Thrown if the consumer is null.
-     *
-     * @since SINCE-TBD
+     * @param rcmDellFwuConsumer The Remediation consumer.
+     * @throws IllegalArgumentException Thrown if the consumer is null.
+     * @since 1.0
      */
-    protected void setDellFwuConsumer(final IDellFwuAmqpConsumer RemediationConsumer)
+    protected void setRcmDellFwuConsumer(final IDellFwuAmqpConsumer rcmDellFwuConsumer)
     {
-        if (RemediationConsumer == null)
+        if (rcmDellFwuConsumer == null)
         {
             throw new IllegalArgumentException("The Remediation consumer is null.");
         }
 
-        this.DellFwuConsumer = RemediationConsumer;
+        this.rcmDellFwuConsumer = rcmDellFwuConsumer;
     }
 
     private void createAndAddServiceTask(final String requestId, final ServiceCallback<?> callback, final long timeout)
     {
         // the infinite timeout is used for the task because it is handled with
         // this synchronous call.
-        ServiceTask<IServiceCallback<?>> task = new ServiceTask<IServiceCallback<?>>(requestId, callback, timeout);
+        final ServiceTask<IServiceCallback<?>> task = new ServiceTask<IServiceCallback<?>>(requestId, callback, timeout);
 
         // add the compute callback using the correlation identifier as key
         this.addServiceTask(requestId, task);
@@ -362,8 +333,8 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
 
     private void logAndThrowException(final Exception exception) throws DellFwuServiceException
     {
-        Object[] lparams = {exception.getMessage()};
-        String lmessage = LOGGER.error(RRSMessageCode.PUBLISH_MESSAGE_FAIL_E.getMessageCode(), lparams, exception);
+        final Object[] lparams = {exception.getMessage()};
+        final String lmessage = LOGGER.error(DellFwuMessageCode.PUBLISH_MESSAGE_FAIL_E.getMessageCode(), lparams, exception);
 
         throw new DellFwuServiceException(lmessage, exception);
     }
@@ -381,7 +352,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     private void checkForServiceError(final ServiceCallback<?> callback) throws DellFwuServiceException
     {
         // check to see if a compute error has been handled by the manager
-        ServiceError error = callback.getServiceError();
+        final ServiceError error = callback.getServiceError();
 
         // throw a compute exception using the message in the compute error
         if (error != null)
@@ -392,8 +363,8 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
 
     private void logAndThrowTimeoutException(final String requestId, final long timeLimit) throws ServiceTimeoutException
     {
-        Object[] lparams = {requestId, "" + timeLimit};
-        String lmessage = LOGGER.error(RRSMessageCode.MESSAGE_TIMEOUT_E.getMessageCode(), lparams);
+        final Object[] lparams = {requestId, "" + timeLimit};
+        final String lmessage = LOGGER.error(DellFwuMessageCode.MESSAGE_TIMEOUT_E.getMessageCode(), lparams);
 
         throw new ServiceTimeoutException(lmessage);
     }
@@ -402,12 +373,12 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     {
         if (this.isShutDown())
         {
-            String lmessage = LOGGER.error(RRSMessageCode.MANAGER_SHUTDOWN_E.getMessageCode());
+            final String lmessage = LOGGER.error(DellFwuMessageCode.MANAGER_SHUTDOWN_E.getMessageCode());
             throw new DellFwuServiceException(lmessage);
         }
     }
 
-    private void nullCheck(final String deviceType, String uuidToCheck) throws DellFwuServiceException
+    private void nullCheck(final String deviceType, final String uuidToCheck) throws DellFwuServiceException
     {
         if (uuidToCheck == null)
         {
