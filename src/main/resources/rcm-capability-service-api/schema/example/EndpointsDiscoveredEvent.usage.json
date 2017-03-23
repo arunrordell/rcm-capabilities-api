@@ -1,0 +1,27 @@
+{
+  "configuration": {
+    "host": "localhost",
+    "exchange": "exchange.dell.cpsd.endpoint.registration.request",
+    "routingKey": "dell.cpsd.endpoint.discovered"
+  },
+  "properties": {
+    "headers": {
+      "__TypeId__": "com.dell.cpsd.endpoint.registration.api.EndpointsDiscoveredEvent"
+    },
+    "contentType": "application/json"
+  },
+  "body": {
+    "endpoint": {
+      "type": "rackhd",
+      "instances": [
+        {
+          "url": "http://10.1.164.56:8080",
+          "tags": [
+            "datacenter_US/NY",
+            "v1"
+          ]
+        }
+      ]
+    }
+  }
+}
