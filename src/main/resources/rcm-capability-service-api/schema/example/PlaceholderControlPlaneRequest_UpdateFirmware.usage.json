@@ -1,7 +1,7 @@
 {
   "configuration": {
     "host": "localhost",
-    "exchange": "exchange.dell.cpsd.service.rcm.capability.request",
+    "exchange": "exchange.dell.cpsd.controlplane.rackhd.request",
     "routingKey": "dell.cpsd.service.rcm.capability.placeholder.controlpane.request"
   },
   "properties": {
