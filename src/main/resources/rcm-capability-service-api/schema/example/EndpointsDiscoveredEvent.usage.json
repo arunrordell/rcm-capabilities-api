@@ -1,7 +1,7 @@
 {
   "configuration": {
     "host": "localhost",
-    "exchange": "exchange.dell.cpsd.endpoint.registration.request",
+    "exchange": "exchange.dell.cpsd.endpoint.registration.event",
     "routingKey": "dell.cpsd.endpoint.discovered"
   },
   "properties": {
