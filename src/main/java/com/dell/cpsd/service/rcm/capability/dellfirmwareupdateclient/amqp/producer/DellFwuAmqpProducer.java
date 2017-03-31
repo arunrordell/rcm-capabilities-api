@@ -7,7 +7,7 @@ package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.produ
 
 import com.dell.cpsd.common.logging.ILogger;
 import com.dell.cpsd.service.rcm.capability.CommandParameter;
-import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.MessageProperties;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
@@ -87,7 +87,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
             final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException
     {
         final MessageProperties message = new MessageProperties(this.calendar.getTime(), correlationId, "remediationapi." + this.hostname);
-        final ControlPlaneResponse wrappedMessage = new ControlPlaneResponse(message, responseMessage, parameters);
+        final UpdateFirmwareResponse wrappedMessage = new UpdateFirmwareResponse(message, responseMessage, parameters);
 
         this.routingKey = rcmDellFwuRoutingKey;
 
@@ -111,7 +111,7 @@ public class DellFwuAmqpProducer implements IDellFwuAmqpProducer
         LOGGER.debug(builder.toString());
     }
 
-    private void sendMessage(final ControlPlaneResponse message) throws DellFwuServiceException
+    private void sendMessage(final UpdateFirmwareResponse message) throws DellFwuServiceException
     {
         try
         {

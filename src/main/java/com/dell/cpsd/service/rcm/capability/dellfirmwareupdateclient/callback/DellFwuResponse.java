@@ -6,7 +6,7 @@
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.callback;
 
 import com.dell.cpsd.service.common.client.callback.ServiceResponse;
-import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 
 /**
  * Dell Firmware update response.
@@ -18,7 +18,7 @@ import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
  * @since 1.0
  */
 
-public class DellFwuResponse extends ServiceResponse<ControlPlaneResponse>
+public class DellFwuResponse extends ServiceResponse<UpdateFirmwareResponse>
 {
     /**
      * DellFwuResponse constructor
@@ -27,7 +27,7 @@ public class DellFwuResponse extends ServiceResponse<ControlPlaneResponse>
      * @param response  The reponse data.
      * @since 1.0
      */
-    public DellFwuResponse(final String requestId, final ControlPlaneResponse response)
+    public DellFwuResponse(final String requestId, final UpdateFirmwareResponse response)
     {
         super(requestId, response, "");
     }
