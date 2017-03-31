@@ -1,0 +1,44 @@
+{
+  "configuration": {
+    "host": "localhost",
+    "exchange": "exchange.dell.cpsd.controlplane.rackhd.request",
+    "routingKey": "dell.cpsd.service.rcm.capability.update.firmware.requested"
+  },
+  "properties": {
+    "headers": {
+      "__TypeId__": "com.dell.cpsd.service.rcm.capability.update.firmware.requested"
+    },
+    "contentType": "application/json"
+  },
+  "body": {
+    "messageProperties": {
+      "timestamp": "2010-01-01T12:00:00Z",
+      "correlationId": "abcdabcd-abcd-abcd-abcd-abcdabcdabcd",
+      "replyTo": "paqx.localhost"
+    },
+    "ComponentBody": {
+      "componentUuid": "111111"
+    },
+    "CommandBody": {
+      "CommandType": "UpdateFirmware",
+      "CommandParameters": [
+        {
+          "key": "subComponentType",
+          "value": "BIOS"
+        },
+        {
+          "key": "FilePath",
+          "value": "/home/vce/firmware/dell_bios_firmware.exe"
+        },
+        {
+          "key": "CurrentVersion",
+          "value": "1.2.3"
+        },
+        {
+          "key": "UpdatedVersion",
+          "value": "1.2.4"
+        }
+      ]
+    }
+  }
+}

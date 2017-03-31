@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "title": "PlaceholderRemediationResponse",
-  "description": "Response for remediation.",
+  "title": "UpdateFirmwareResponse",
+  "description": "Response for update firmware request.",
   "_meta": {
-    "message": "com.dell.cpsd.service.rcm.capability.response",
+    "message": "com.dell.cpsd.service.rcm.capability.update.firmware.response",
     "version": "1.0"
   },
   "properties": {

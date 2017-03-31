@@ -15,7 +15,7 @@ import com.dell.cpsd.service.common.client.exception.ServiceTimeoutException;
 import com.dell.cpsd.service.common.client.manager.AbstractServiceCallbackManager;
 import com.dell.cpsd.service.common.client.task.ServiceTask;
 import com.dell.cpsd.service.rcm.capability.CommandParameter;
-import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
@@ -152,7 +152,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
      * @since 1.0
      */
     @Override
-    public void handleDellFwuResponse(final ControlPlaneResponse result)
+    public void handleDellFwuResponse(final UpdateFirmwareResponse result)
     {
         if (result == null)
         {

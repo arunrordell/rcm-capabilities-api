@@ -10,7 +10,8 @@ import com.dell.cpsd.common.rabbitmq.MessageAnnotationProcessor;
 import com.dell.cpsd.common.rabbitmq.MessageAnnotationProcessorCallback;
 import com.dell.cpsd.common.rabbitmq.config.IRabbitMqPropertiesConfig;
 import com.dell.cpsd.service.common.client.context.IConsumerContextConfig;
-import com.dell.cpsd.service.rcm.capability.ControlPlaneResponse;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareRequested;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
@@ -77,22 +78,22 @@ public class DellFwuRabbitConfig
     /*
      * The binding key to the remediation message queue.
      */
-    private static final String BINDING_REMEDIATION_REQUEST = "com.dell.cpsd.service.rcm.capability.request";
+    private static final String BINDING_REMEDIATION_REQUEST = "dell.cpsd.service.rcm.capability.update.firmware.requested";
 
     /*
      * The fragment of the remediation message queue name.
      */
-    private static final String QUEUE_REMEDIATION_REQUEST = "queue.dell.cpsd.service.rcm.capability.request";
+    private static final String QUEUE_REMEDIATION_REQUEST = "queue.dell.cpsd.service.rcm.capability.update.firmware.requested";
 
     /*
      * The binding key to the remediation message queue.
      */
-    private static final String BINDING_REMEDIATION_RESPONSE = "dell.cpsd.service.rcm.capability.placeholder.controlpane.response";
+    private static final String BINDING_REMEDIATION_RESPONSE = "dell.cpsd.service.rcm.capability.update.firmware.response";
 
     /*
      * The fragment of the remediation message queue name.
      */
-    private static final String QUEUE_REMEDIATION_RESPONSE = "queue.dell.cpsd.service.rcm.capability.response";
+    private static final String QUEUE_REMEDIATION_RESPONSE = "queue.dell.cpsd.service.rcm.capability.update.firmware.response";
 
     /*
      * The name of the remediation exchange.
@@ -211,7 +212,8 @@ public class DellFwuRabbitConfig
         final List<Class<?>> messageClasses = new ArrayList<Class<?>>();
 
         messageClasses.add(PlaceholderControlPlaneRequest.class);
-        messageClasses.add(ControlPlaneResponse.class);
+        messageClasses.add(UpdateFirmwareRequested.class);
+        messageClasses.add(UpdateFirmwareResponse.class);
         messageClasses.add(RemediationErrorMessage.class);
 
         final MessageAnnotationProcessor messageAnnotationProcessor = new MessageAnnotationProcessor();
