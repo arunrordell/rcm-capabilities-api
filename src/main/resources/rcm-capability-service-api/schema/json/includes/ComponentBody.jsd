@@ -7,9 +7,12 @@
       "type": "string",
       "title": "componentUuid",
       "description": "componentUuid"
+    },
+  "componentIdentifier": {
+      "type": "string",
+      "title": "componentIdentifier",
+      "description": "componentIdentifier"
     }
-  },
-  "required": [
-    "componentUuid"
-  ]
+
+  }
 }
