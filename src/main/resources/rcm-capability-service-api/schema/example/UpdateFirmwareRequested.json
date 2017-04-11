@@ -4,10 +4,11 @@
     "correlationId": "abcdabcd-abcd-abcd-abcd-abcdabcdabcd",
     "replyTo": "paqx.localhost"
   },
-  "ComponentBody": {
-    "componentUuid": "111111"
+  "componentBody": {
+    "componentUuid": "111111",
+    "componentIdentifier": "111111"
   },
-  "CommandBody": {
+  "commandBody": {
     "CommandType": "UpdateFirmware",
     "CommandParameters": [
       {
