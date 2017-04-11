@@ -13,12 +13,14 @@ See resources folder of project for json messages, these are built automatically
 
 ## Before you begin
 The system should have Java Runtime Environment installed.
-The system should have RabbitMQ 
+The system should have RabbitMQ installed.
 
 ## Building
 For compilation Java and Maven should be installed.
 Preferred Java version oracle: "1.8.0_121".
 Preferred Maven version: Apache Maven 3.3.9 or greater·
+http://repo.vmo.lab:8080/artifactory/settings.xml of maven which is in .m2 directory should contain path to artifactory.
+
 Then run the following command:-
 mvn clean compile
 
@@ -32,15 +34,15 @@ Then run the following command:-
 mvn clean install
 
 ## Deploying
-The output after packaging is an rpm.
-Use rpm or yum command to deploy the rpm in the Linux system.
-After rpm is installed cli is ready to use.
+The output after packaging is a jar.
+It should not be run in standalone.
+It is used generally with services which need to consume this api.
 
 Command Usage:-
 No main Program currently this project is in use in an internal DellEMC project based on RackHD.
 
 ## Testing
-Unit tests are run as park of the mvn packaging
+Unit tests are run as part of the mvn packaging
 Project is auto built in Jenkins with automation tests
 
 ## Contributing
