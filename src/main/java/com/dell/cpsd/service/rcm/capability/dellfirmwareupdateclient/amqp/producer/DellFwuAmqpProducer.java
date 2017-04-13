@@ -1,6 +1,6 @@
-/*
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * VCE Confidential/Proprietary Information
+/**
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer;
@@ -21,7 +21,8 @@ import java.util.List;
 /**
  * This is the message producer that sends messages to the remediation service.
  * <p/>
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  * <p/>
  *
  * @version 1.0

@@ -1,6 +1,6 @@
-/*
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * VCE Confidential/Proprietary Information
+/**
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log;
@@ -14,9 +14,9 @@ import java.util.ResourceBundle;
 /**
  * This is the logging manager for the RCM compliance data client.
  * <p>
- * <p/>
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * <p/>
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
+ * </p>
  *
  * @version 1.0
  * @since 1.0
