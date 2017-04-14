@@ -87,7 +87,7 @@ public class ControlPlaneConstants
 
     public enum CommandParameterType
     {
-        FILEPATH("FilePath"),
+        FILEPATH("serverFilePath"),
         INSTANCE_ID("InstanceId");
 
         private final String name;

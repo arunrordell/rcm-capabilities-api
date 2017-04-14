@@ -18,6 +18,11 @@
       "title": "rackHdIp",
       "description": "rackHdIp"
     },
+    "componentIp": {
+      "type": "string",
+      "title": "componentIp",
+      "description": "componentIp"
+    },
     "nodeId": {
       "type": "string",
       "title": "nodeId",
