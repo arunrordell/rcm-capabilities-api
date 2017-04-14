@@ -1,6 +1,6 @@
-/*
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * VCE Confidential/Proprietary Information
+/**
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp;
@@ -37,9 +37,9 @@ import java.util.UUID;
  * This class is responsible for sending and processing messages to and from
  * the Remediation service.
  * <p>
- * <p/>
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * <p/>
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
+ * </p>
  *
  * @version 1.0
  * @since 1.0

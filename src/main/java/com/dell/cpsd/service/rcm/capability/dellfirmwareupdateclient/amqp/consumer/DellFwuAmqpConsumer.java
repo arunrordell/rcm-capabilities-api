@@ -1,6 +1,6 @@
-/*
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
- * VCE Confidential/Proprietary Information
+/**
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer;
@@ -16,7 +16,8 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwu
  * This is the message consumer that handles responses from the Remediation service.
  * service.
  * <p/>
- * Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  * <p/>
  *
  * @version 1.0
