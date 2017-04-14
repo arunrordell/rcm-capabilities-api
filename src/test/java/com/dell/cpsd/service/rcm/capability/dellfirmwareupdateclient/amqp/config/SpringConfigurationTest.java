@@ -1,3 +1,8 @@
+/**
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
+ */
+
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.config;
 
 import org.junit.Before;
@@ -6,6 +11,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ *
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
+ *
+ * @since 1.0
+ */
 public class SpringConfigurationTest
 {
     @Before

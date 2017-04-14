@@ -1,6 +1,6 @@
-/*
+/**
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
- * VCE Confidential/Proprietary Information
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.i18n;
@@ -17,7 +17,8 @@ import static org.junit.Assert.fail;
 /**
  * Dell Firmware Update client texts bundle test.
  * <p>
- * Copyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  * </p>
  *
  * @since 1.0
