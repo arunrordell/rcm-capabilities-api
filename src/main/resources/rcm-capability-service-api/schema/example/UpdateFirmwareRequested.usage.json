@@ -17,7 +17,7 @@
       "replyTo": "paqx.localhost"
     },
     "componentBody": {
-      "componentIdentifier": "111111",
+      "componentIdentifier": "24:6e:96:17:e4:02",
       "componentUuid": "111111"
     },
     "commandBody": {
@@ -28,8 +28,8 @@
           "value": "BIOS"
         },
         {
-          "key": "FilePath",
-          "value": "/home/vce/firmware/dell_bios_firmware.exe"
+          "key": "serverFilePath",
+          "value": "/home/vce/firmware/BIOS_PFWCY_WN64_2.2.5.EXE"
         },
         {
           "key": "CurrentVersion",
