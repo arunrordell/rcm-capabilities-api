@@ -153,7 +153,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectory>src/main/resources/rcm-capability-service-api/schema/json</sourceDirectory>
+                            <sourceDirectory>${project.basedir}/src/main/resources/rcm-capability-service-api/schema/json</sourceDirectory>
                             <targetPackage>com.dell.cpsd.service.rcm.capability</targetPackage>
                             <outputDirectory>${project.build.directory}/generated-sources/rcm-capability-service-api</outputDirectory>
                             <removeOldOutput>true</removeOldOutput>
