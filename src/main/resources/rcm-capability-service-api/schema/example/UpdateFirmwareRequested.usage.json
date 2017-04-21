@@ -32,6 +32,10 @@
           "value": "/home/vce/firmware/BIOS_PFWCY_WN64_2.2.5.EXE"
         },
         {
+          "key": "EmulateWorkflow",
+          "value": "off"
+        },
+        {
           "key": "CurrentVersion",
           "value": "1.2.3"
         },
