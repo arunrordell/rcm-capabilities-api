@@ -16,7 +16,6 @@ import com.dell.cpsd.service.common.client.manager.AbstractServiceCallbackManage
 import com.dell.cpsd.service.common.client.task.ServiceTask;
 import com.dell.cpsd.service.rcm.capability.CommandParameter;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
-import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.IDellFwuConfiguration;
@@ -137,12 +136,6 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
 
         // if there was no compute error, then return the compute result
         return callback.getServiceResponse();
-    }
-
-    @Override
-    public void handleDellFwuRequest(final PlaceholderControlPlaneRequest request)
-    {
-
     }
 
     /**
