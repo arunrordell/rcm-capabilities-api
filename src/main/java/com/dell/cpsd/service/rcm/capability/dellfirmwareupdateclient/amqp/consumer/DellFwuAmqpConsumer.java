@@ -7,8 +7,8 @@ package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consu
 
 import com.dell.cpsd.common.logging.ILogger;
 import com.dell.cpsd.common.rabbitmq.consumer.UnhandledMessageConsumer;
-import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 
@@ -90,13 +90,13 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     }
 
     /**
-     * This handles the <code>PlaceholderControlPlaneRequest</code> that is
+     * This handles the <code>UpdateFirmwareResponse</code> that is
      * consumed from the Remediation queue.
      *
-     * @param message The <code>PlaceholderControlPlaneRequest</code> to consume.
-     * @since 1.0
+     * @param message The <code>UpdateFirmwareResponse</code> to consume.
+     * @since 1.1
      */
-    public void handleMessage(final PlaceholderControlPlaneRequest message)
+    public void handleMessage(final UpdateFirmwareResponse message)
     {
         if (message == null)
         {
@@ -115,7 +115,7 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
             LOGGER.debug(" handleMessage : " + message);
         }
 
-        this.handler.handleDellFwuRequest(message);
+        this.handler.handleDellFwuResponse(message);
     }
 
     /**

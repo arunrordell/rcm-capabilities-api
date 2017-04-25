@@ -12,7 +12,6 @@ import com.dell.cpsd.common.rabbitmq.config.IRabbitMqPropertiesConfig;
 import com.dell.cpsd.service.common.client.context.IConsumerContextConfig;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareRequested;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
-import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
@@ -212,7 +211,6 @@ public class DellFwuRabbitConfig
 
         final List<Class<?>> messageClasses = new ArrayList<Class<?>>();
 
-        messageClasses.add(PlaceholderControlPlaneRequest.class);
         messageClasses.add(UpdateFirmwareRequested.class);
         messageClasses.add(UpdateFirmwareResponse.class);
         messageClasses.add(RemediationErrorMessage.class);

@@ -5,9 +5,8 @@
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer;
 
-import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
-import com.dell.cpsd.service.rcm.capability.PlaceholderControlPlaneRequest;
 import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 
 /**
  * Dell Firmware update message handler interface.
@@ -21,13 +20,11 @@ import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
 public interface IDellFwuAmqpMessageHandler
 {
     /**
-     * This handles the processing of a <code>PlaceholderControlPlaneRequest</code>.
+     * This handles the processing of a <code>UpdateFirmwareResponse</code>.
      *
-     * @param message The <code>PlaceholderControlPlaneRequest</code> to process.
+     * @param message The <code>UpdateFirmwareResponse</code> to process.
      * @since 1.0
      */
-    void handleDellFwuRequest(PlaceholderControlPlaneRequest message);
-
     void handleDellFwuResponse(UpdateFirmwareResponse message);
 
     /**
