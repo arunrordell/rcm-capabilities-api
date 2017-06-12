@@ -16,7 +16,7 @@ import com.dell.cpsd.service.common.client.manager.AbstractServiceCallbackManage
 import com.dell.cpsd.service.common.client.task.ServiceTask;
 import com.dell.cpsd.service.rcm.capability.CommandParameter;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
-import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.IDellFwuConfiguration;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.config.DellFwuRabbitConfig;
@@ -176,13 +176,13 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
     }
 
     /**
-     * This handles the processing of a <code>RemediationErrorMessage</code>.
+     * This handles the processing of a <code>UpdateFirmwareErrorMessage</code>.
      *
-     * @param message The <code>RemediationErrorMessage</code> to process.
+     * @param message The <code>UpdateFirmwareErrorMessage</code> to process.
      * @since 1.0
      */
     @Override
-    public void handleDellFwuError(final RemediationErrorMessage message)
+    public void handleDellFwuError(final UpdateFirmwareErrorMessage message)
     {
         if (message == null)
         {

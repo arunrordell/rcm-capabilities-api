@@ -5,7 +5,7 @@
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer;
 
-import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareErrorMessage;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 
 /**
@@ -28,10 +28,10 @@ public interface IDellFwuAmqpMessageHandler
     void handleDellFwuResponse(UpdateFirmwareResponse message);
 
     /**
-     * This handles the processing of a <code>RemediationErrorMessage</code>.
+     * This handles the processing of a <code>UpdateFirmwareErrorMessage</code>.
      *
-     * @param message The <code>RemediationErrorMessage</code> to process.
+     * @param message The <code>UpdateFirmwareErrorMessage</code> to process.
      * @since 1.0
      */
-    void handleDellFwuError(RemediationErrorMessage message);
+    void handleDellFwuError(UpdateFirmwareErrorMessage message);
 }
