@@ -12,7 +12,7 @@ import com.dell.cpsd.common.rabbitmq.config.IRabbitMqPropertiesConfig;
 import com.dell.cpsd.service.common.client.context.IConsumerContextConfig;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareRequested;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
-import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareErrorMessage;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -213,7 +213,7 @@ public class DellFwuRabbitConfig
 
         messageClasses.add(UpdateFirmwareRequested.class);
         messageClasses.add(UpdateFirmwareResponse.class);
-        messageClasses.add(RemediationErrorMessage.class);
+        messageClasses.add(UpdateFirmwareErrorMessage.class);
 
         final MessageAnnotationProcessor messageAnnotationProcessor = new MessageAnnotationProcessor();
 

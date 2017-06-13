@@ -7,7 +7,7 @@ package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consu
 
 import com.dell.cpsd.common.logging.ILogger;
 import com.dell.cpsd.common.rabbitmq.consumer.UnhandledMessageConsumer;
-import com.dell.cpsd.service.rcm.capability.RemediationErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareErrorMessage;
 import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuLoggingManager;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwuMessageCode;
@@ -119,13 +119,13 @@ public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDe
     }
 
     /**
-     * This handles the <code>RemediationErrorMessage</code> that is consumed
+     * This handles the <code>UpdateFirmwareErrorMessage</code> that is consumed
      * from the Remediation queue.
      *
-     * @param message The <code>RemediationErrorMessage</code> to consume.
+     * @param message The <code>UpdateFirmwareErrorMessage</code> to consume.
      * @since 1.0
      */
-    public void handleMessage(final RemediationErrorMessage message)
+    public void handleMessage(final UpdateFirmwareErrorMessage message)
     {
         if (message == null)
         {

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "title": "RemediationErrorMessage",
+  "title": "UpdateFirmwareErrorMessage",
   "description": "Message sent when an error occured.",
   "_meta": {
     "message": "com.dell.cpsd.service.rcm.capability.error",
