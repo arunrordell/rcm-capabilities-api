@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "UpdateFirmwareStatusRunningResponse",
+  "description": "Response for update firmware status request.",
+  "_meta": {
+    "message": "com.dell.cpsd.service.rcm.capability.update.firmware.response.running",
+    "version": "1.0"
+  },
+  "properties": {
+    "messageProperties": {
+      "$ref": "includes/MessageProperties.jsd"
+    },
+    "controlPlaneCommand": {
+      "type": "string",
+      "title": "Control plane command",
+      "description": "Control plane command."
+    },
+    "CommandParameters": {
+      "type": "array",
+      "title": "Command Parameters",
+      "description": "Command Parameters",
+      "items": {
+        "$ref": "includes/CommandParameter.jsd"
+      }
+    }
+  },
+  "required": [
+    "messageProperties",
+    "controlPlaneCommand"
+  ]
+}
