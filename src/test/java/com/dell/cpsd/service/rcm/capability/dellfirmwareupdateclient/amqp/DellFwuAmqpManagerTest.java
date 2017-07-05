@@ -7,11 +7,15 @@ package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp;
 
 import com.dell.cpsd.service.common.client.exception.ServiceTimeoutException;
 import com.dell.cpsd.service.rcm.capability.CommandParameter;
+import com.dell.cpsd.service.rcm.capability.MessageProperties;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareErrorMessage;
+import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.DellFwuServiceException;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.IDellFwuConfiguration;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpConsumer;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpMessageHandler;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer.IDellFwuAmqpProducer;
+import com.oracle.deploy.update.UpdateCheck;
 import org.junit.Test;
 
 import java.util.List;
@@ -70,6 +74,11 @@ public class DellFwuAmqpManagerTest
         }
     };
 
+    private static final String randomUuid = "uuid";
+    private static final long timeout = 10000L;
+    private static final MessageProperties messageProperties = new MessageProperties(null,"correlationId",null);
+
+
     @Test(expected = IllegalArgumentException.class)
     public void testDellFwuAmqpManagerNullConstructor() throws Exception
     {
@@ -80,13 +89,35 @@ public class DellFwuAmqpManagerTest
     public void testDellFwuAmqpManager() throws Exception
     {
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
-        dellFwuAmqpManager.getDellFwu("uuid", 1000L);
+        dellFwuAmqpManager.getDellFwu(randomUuid, timeout);
     }
 
     @Test(expected = DellFwuServiceException.class)
     public void testDellFwuAmqpManagerUuidNull() throws Exception
     {
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
-        dellFwuAmqpManager.getDellFwu(null, 1000L);
+        dellFwuAmqpManager.getDellFwu(null, timeout);
+    }
+
+    @Test
+    public void testDellFwuResponse() throws Exception
+    {
+        UpdateFirmwareResponse updateFirmwareResponse = new UpdateFirmwareResponse();
+        updateFirmwareResponse.setMessageProperties(messageProperties);
+        updateFirmwareResponse.setCommandParameters(null);
+        updateFirmwareResponse.setControlPlaneCommand("dummyCtrlPlaneCmd");
+        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
+        dellFwuAmqpManager.handleDellFwuResponse(null);
+        dellFwuAmqpManager.handleDellFwuResponse(updateFirmwareResponse);
+    }
+
+    @Test
+    public void testhandleDellFwuError() throws Exception
+    {
+        UpdateFirmwareErrorMessage updateFirmwareErrorMessage = new UpdateFirmwareErrorMessage();
+        updateFirmwareErrorMessage.setMessageProperties(messageProperties);
+        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
+        dellFwuAmqpManager.handleDellFwuError(null);
+        dellFwuAmqpManager.handleDellFwuError(updateFirmwareErrorMessage);
     }
 }
