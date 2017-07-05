@@ -15,7 +15,7 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.IDellFwuCon
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpConsumer;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpMessageHandler;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer.IDellFwuAmqpProducer;
-import com.oracle.deploy.update.UpdateCheck;
+
 import org.junit.Test;
 
 import java.util.List;
