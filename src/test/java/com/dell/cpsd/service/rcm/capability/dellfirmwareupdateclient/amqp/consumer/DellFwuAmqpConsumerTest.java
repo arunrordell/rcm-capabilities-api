@@ -31,21 +31,20 @@ import static org.junit.Assert.assertTrue;
  */
 public class DellFwuAmqpConsumerTest
 {
-    private static final String                     routingKey = "testKey";
-    private static final DellFwuAmqpConsumer        consumer   = new DellFwuAmqpConsumer(routingKey);
-    private static final String correlationId = "dummyKey";
-    private static final String controlPlaneCommand    = "TestCommand";
-    private static final String replyTo       = "test";
-    private static final String propertyName = "testProperty";
-    private static final String commandParameterKey = "testKey";
-    private static final String commandParameterVal = "testVal";
-    private static final String errorCode = "test001";
-    private static final String errorMsg = "dummyError";
-    private static final Calendar date = new GregorianCalendar();
-    private static final MessageProperties msgProperties = new MessageProperties(date.getTime(), correlationId, replyTo);
+    private static final String              routingKey          = "testKey";
+    private static final DellFwuAmqpConsumer consumer            = new DellFwuAmqpConsumer(routingKey);
+    private static final String              correlationId       = "dummyKey";
+    private static final String              controlPlaneCommand = "TestCommand";
+    private static final String              replyTo             = "test";
+    private static final String              propertyName        = "testProperty";
+    private static final String              commandParameterKey = "testKey";
+    private static final String              commandParameterVal = "testVal";
+    private static final String              errorCode           = "test001";
+    private static final String              errorMsg            = "dummyError";
+    private static final Calendar            date                = new GregorianCalendar();
+    private static final MessageProperties   msgProperties       = new MessageProperties(date.getTime(), correlationId, replyTo);
 
-
-    private static final IDellFwuAmqpMessageHandler handler    = new IDellFwuAmqpMessageHandler()
+    private static final IDellFwuAmqpMessageHandler handler = new IDellFwuAmqpMessageHandler()
     {
         @Override
         public void handleDellFwuResponse(UpdateFirmwareResponse message)
@@ -68,7 +67,7 @@ public class DellFwuAmqpConsumerTest
 
             message.setMessageProperties(msgProperties);
 
-            List<Error> errors =  new ArrayList<Error>();
+            List<Error> errors = new ArrayList<Error>();
             errors.add(new Error(errorCode, errorMsg));
             message.setErrors(errors);
 
@@ -118,7 +117,7 @@ public class DellFwuAmqpConsumerTest
         consumer.handleMessage(errorMessage);
 
         assertNull(errorMessage.getAdditionalProperties().get(propertyName));
-        assertTrue(errorCode,errorMessage.getErrors().contains(new Error(errorCode, errorMsg)));
+        assertTrue(errorCode, errorMessage.getErrors().contains(new Error(errorCode, errorMsg)));
         assertEquals(msgProperties, errorMessage.getMessageProperties());
     }
 
