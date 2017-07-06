@@ -15,10 +15,11 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.IDellFwuCon
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpConsumer;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.consumer.IDellFwuAmqpMessageHandler;
 import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.producer.IDellFwuAmqpProducer;
-
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -29,8 +30,7 @@ import static org.junit.Assert.assertNotNull;
  * Copyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved. Dell EMC Confidential/Proprietary Information
  * <p/>
  *
- * @version 1.0
- * @since TBD
+ * @since 1.1
  */
 public class DellFwuAmqpManagerTest
 {
@@ -105,12 +105,12 @@ public class DellFwuAmqpManagerTest
             };
             return iDellFwuAmqpConsumer;
         }
-
         @Override
         public IDellFwuAmqpProducer getDellFwuProducer()
         {
             return null;
         }
+
     };
 
     IDellFwuConfiguration consumerNull = new IDellFwuConfiguration()
@@ -127,9 +127,8 @@ public class DellFwuAmqpManagerTest
             IDellFwuAmqpProducer iDellFwuAmqpProducer = new IDellFwuAmqpProducer()
             {
                 @Override
-                public void publishDellFwuComponent(final String timestamp, final String correlationId,
-                        final String rcmDellFwuRoutingKey, final String responseMessage, final List<CommandParameter> parameters)
-                        throws DellFwuServiceException
+                public void publishDellFwuComponent(final String timestamp, final String correlationId, final String rcmDellFwuRoutingKey,
+                        final String responseMessage, final List<CommandParameter> parameters) throws DellFwuServiceException
                 {
 
                 }
@@ -137,11 +136,11 @@ public class DellFwuAmqpManagerTest
             return iDellFwuAmqpProducer;
         }
     };
+    private              Calendar date       = new GregorianCalendar();
+    private static final long     timeout    = 10000L;
+    private static final String   randomUuid = "uuid";
 
-    private static final String randomUuid = "uuid";
-    private static final long timeout = 10000L;
-    private static final MessageProperties messageProperties = new MessageProperties(null,"correlationId",null);
-
+    private final MessageProperties messageProperties = new MessageProperties(date.getTime(), "correlationId", "test");
 
     @Test(expected = IllegalArgumentException.class)
     public void testDellFwuAmqpManagerNullConstructor() throws Exception
@@ -149,22 +148,43 @@ public class DellFwuAmqpManagerTest
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(null);
     }
 
-    @Test(expected = ServiceTimeoutException.class)
+    @Test
     public void testDellFwuAmqpManager() throws Exception
+    {
+        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
+        assertNotNull(dellFwuAmqpManager.getRcmDellFwuProducer());
+        assertNotNull(dellFwuAmqpManager.getRcmDellFwuConsumer());
+        assertEquals(dellFwuAmqpManager.getRoutingKey(), this.iDellFwuConfiguration.getDellFwuConsumer().getRoutingKey());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testProducerNull() throws Exception
+    {
+        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(producerNull);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConsumerNull() throws Exception
+    {
+        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(consumerNull);
+    }
+
+    @Test(expected = ServiceTimeoutException.class)
+    public void testGetDellFwu() throws Exception
     {
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
         dellFwuAmqpManager.getDellFwu(randomUuid, timeout);
     }
 
     @Test(expected = DellFwuServiceException.class)
-    public void testDellFwuAmqpManagerUuidNull() throws Exception
+    public void testGetDellFwuUuidNull() throws Exception
     {
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
         dellFwuAmqpManager.getDellFwu(null, timeout);
     }
 
     @Test
-    public void testDellFwuResponse() throws Exception
+    public void testHandleDellFwuResponse() throws Exception
     {
         UpdateFirmwareResponse updateFirmwareResponse = new UpdateFirmwareResponse();
         updateFirmwareResponse.setMessageProperties(messageProperties);
@@ -173,27 +193,16 @@ public class DellFwuAmqpManagerTest
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
         dellFwuAmqpManager.handleDellFwuResponse(null);
         dellFwuAmqpManager.handleDellFwuResponse(updateFirmwareResponse);
-        assertNotNull(dellFwuAmqpManager.getRcmDellFwuProducer());
     }
 
     @Test
-    public void testhandleDellFwuError() throws Exception
+    public void testHandleDellFwuError() throws Exception
     {
         UpdateFirmwareErrorMessage updateFirmwareErrorMessage = new UpdateFirmwareErrorMessage();
         updateFirmwareErrorMessage.setMessageProperties(messageProperties);
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
         dellFwuAmqpManager.handleDellFwuError(null);
         dellFwuAmqpManager.handleDellFwuError(updateFirmwareErrorMessage);
-        assertNotNull(dellFwuAmqpManager.getRcmDellFwuConsumer());
-    }
-
-    @Test
-    public void testRoutingKey() throws Exception
-    {
-        String routingKey = "routingKey";
-        DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
-        dellFwuAmqpManager.setRoutingKey(routingKey);
-        assertEquals(dellFwuAmqpManager.getRoutingKey(),routingKey);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -201,18 +210,6 @@ public class DellFwuAmqpManagerTest
     {
         DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(iDellFwuConfiguration);
         dellFwuAmqpManager.setRoutingKey(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetRcmDellFwuConsumerNull()
-    {
-       DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(consumerNull);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetRcmDellFwuProducerNull()
-    {
-       DellFwuAmqpManager dellFwuAmqpManager = new DellFwuAmqpManager(producerNull);
     }
 
     @Test(expected = DellFwuServiceException.class)

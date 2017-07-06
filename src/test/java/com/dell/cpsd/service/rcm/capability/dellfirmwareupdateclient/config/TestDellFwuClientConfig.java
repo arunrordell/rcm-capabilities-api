@@ -35,8 +35,7 @@ import java.util.Map;
  * Copyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved. Dell EMC Confidential/Proprietary Information
  * <p/>
  *
- * @version 1.0
- * @since TBD
+ * @since 1.1
  */
 public class TestDellFwuClientConfig
 {
