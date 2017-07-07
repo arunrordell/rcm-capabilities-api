@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "AMQP properties properties",
-  "description": "AMQP properties.",
+  "description": "AMQP properties.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
   "properties": {
     "timestamp": {
       "type": "string",

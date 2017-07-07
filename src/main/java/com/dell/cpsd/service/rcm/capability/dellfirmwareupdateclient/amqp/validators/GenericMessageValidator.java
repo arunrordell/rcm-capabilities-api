@@ -1,6 +1,6 @@
-/*
- * &copy; 2016 VCE Company, LLC. All rights reserved.
- * VCE Confidential/Proprietary Information
+/**
+ * Copyright © 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
  */
 
 package com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.amqp.validators;
@@ -12,13 +12,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Generic message validator.
- * <p>
- * &copy; 2016 VCE Company, LLC. All rights reserved.
- * VCE Confidential/Proprietary Information
- * </p>
+ * <p/>
+ * Copyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved. Dell EMC Confidential/Proprietary Information
+ * <p/>
  *
  * @version 1.0
- * @since SINCE-TBD
+ * @since TBD
  */
 public abstract class GenericMessageValidator<R extends Object>
 {

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "UpdateFirmwareResponse",
-  "description": "Response for update firmware request.",
+  "description": "Response for update firmware request.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
   "_meta": {
     "message": "com.dell.cpsd.service.rcm.capability.update.firmware.response",
     "version": "1.0"

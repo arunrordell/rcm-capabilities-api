@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "UpdateFirmwareErrorMessage",
-  "description": "Message sent when an error occured.",
+  "description": "Message sent when an error occured.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
   "_meta": {
     "message": "com.dell.cpsd.service.rcm.capability.error",
     "version": "1.0"
