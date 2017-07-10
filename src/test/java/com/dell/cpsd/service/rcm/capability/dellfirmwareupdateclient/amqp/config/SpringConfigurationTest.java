@@ -23,7 +23,6 @@ public class SpringConfigurationTest
     @Before
     public void setUp() throws Exception
     {
-
     }
 
     @Test
