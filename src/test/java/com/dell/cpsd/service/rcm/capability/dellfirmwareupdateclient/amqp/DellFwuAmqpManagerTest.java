@@ -34,6 +34,11 @@ import static org.junit.Assert.assertNotNull;
  */
 public class DellFwuAmqpManagerTest
 {
+    private              Calendar date       = new GregorianCalendar();
+    private static final long     timeout    = 10000L;
+    private static final String   randomUuid = "uuid";
+
+    private final MessageProperties messageProperties = new MessageProperties(date.getTime(), "correlationId", "test");
     public IDellFwuConfiguration iDellFwuConfiguration = new IDellFwuConfiguration()
     {
         @Override
@@ -136,11 +141,6 @@ public class DellFwuAmqpManagerTest
             return iDellFwuAmqpProducer;
         }
     };
-    private              Calendar date       = new GregorianCalendar();
-    private static final long     timeout    = 10000L;
-    private static final String   randomUuid = "uuid";
-
-    private final MessageProperties messageProperties = new MessageProperties(date.getTime(), "correlationId", "test");
 
     @Test(expected = IllegalArgumentException.class)
     public void testDellFwuAmqpManagerNullConstructor() throws Exception
