@@ -24,6 +24,33 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Robert Dubisz</name>
+            <email>Robert.Dubisz@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/RobertDubiszDell</organizationUrl>
+        </developer>
+        <developer>
+            <name>Desmond Collins</name>
+            <email>desmond.collins@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/giddyelysium</organizationUrl>
+        </developer>
+        <developer>
+            <name>Purna Chamala</name>
+            <email>purna.chamala@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/chamap1</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jeff Cheng</name>
+            <email>jeffery.cheng@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/jccheng78</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
