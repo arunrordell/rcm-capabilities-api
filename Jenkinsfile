@@ -1,12 +1,11 @@
-UPSTREAM_JOBS_LIST = [
-    "vce-symphony/common-dependencies/${env.BRANCH_NAME}",
-    "vce-symphony/common-client-parent/${env.BRANCH_NAME}"
-]
-UPSTREAM_JOBS = UPSTREAM_JOBS_LIST.join(',')
+UPSTREAM_TRIGGERS = getUpstreamTriggers([
+    "common-client-parent",
+    "common-dependencies"
+])
 
 pipeline {    
     triggers {
-        upstream(upstreamProjects: UPSTREAM_JOBS, threshold: hudson.model.Result.SUCCESS)
+        upstream(upstreamProjects: UPSTREAM_TRIGGERS, threshold: hudson.model.Result.SUCCESS)
     }
     agent {
         node {
@@ -31,8 +30,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 doCheckout()
-	    }
-	}
+            }
+        }
         stage('Compile') {
             steps {
                 sh "mvn clean install -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true"
