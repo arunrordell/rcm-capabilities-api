@@ -232,22 +232,39 @@ public class DellFwuRabbitConfig
     }
 
     /**
-     * This returns the host name for the client.
+     * This returns the host name for the service.
+     * First it tries to use "container.id" system property, if not available local host name is used.
      *
-     * @return The host name for the client.
+     * @return The host name for the service.
      * @since 1.0
      */
     @Bean
+    @Qualifier("hostName")
     String hostName()
     {
+        String containerId = null;
         try
         {
-            return InetAddress.getLocalHost().getHostName();
+            containerId = System.getProperty("container.id");
+            LOGGER.debug("System property container.id=" + containerId);
         }
-        catch (UnknownHostException e)
+        catch (final Exception e)
         {
-            throw new RuntimeException("Unable to identify hostname", e);
+            LOGGER.error("System property container.id unavailable");
         }
+        if(containerId == null)
+        {
+            try
+            {
+                containerId = InetAddress.getLocalHost().getHostName();
+                LOGGER.debug("Localhost name=" + containerId);
+            }
+            catch (final UnknownHostException eh)
+            {
+                throw new RuntimeException("Unable to identify hostname", eh);
+            }
+        }
+        return containerId;
     }
 
     /**
