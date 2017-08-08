@@ -232,10 +232,10 @@ public class DellFwuRabbitConfig
     }
 
     /**
-     * This returns the host name for the service.
+     * This returns the host name for the client.
      * First it tries to use "container.id" system property, if not available local host name is used.
      *
-     * @return The host name for the service.
+     * @return The host name for the client.
      * @since 1.0
      */
     @Bean
