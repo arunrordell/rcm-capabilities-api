@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * This is the message producer that sends messages to the remediation service.
  *
- * </p>
+ * <p>
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * Dell EMC Confidential/Proprietary Information
  * </p>

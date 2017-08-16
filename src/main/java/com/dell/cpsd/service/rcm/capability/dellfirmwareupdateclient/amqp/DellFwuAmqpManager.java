@@ -98,6 +98,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
      * This returns the remediation data.
      *
      * @param systemUid The uid of the system.
+     * @param timeout DellFwuServiceException
      * @return The remediation response.
      * @throws DellFwuServiceException Thrown if the request fails.
      * @throws ServiceTimeoutException Thrown if the request fails.

@@ -29,14 +29,16 @@ public abstract class GenericMessageValidator<R extends Object>
      *
      * @param requestMessage the request message
      * @throws Throwable the throwable
+     * @return validation results
      */
     protected abstract ValidationResult validateMessage(final R requestMessage) throws Throwable;
 
     /**
      * Validate the message
      *
-     * @param requestMessage
-     * @throws Exception
+     * @param requestMessage the request message
+     * @throws DellFwuServiceException Error Exception
+     * @return validation results
      */
     public ValidationResult validate(final R requestMessage) throws DellFwuServiceException
     {
