@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.-->
+<!--Dell EMC Confidential/Proprietary Information-->
 <assembly>
     <id>schemas</id>
     <formats>
@@ -13,6 +15,13 @@
         <fileSet>
             <outputDirectory>rcm-capability-service-api/schema/example</outputDirectory>
             <directory>src/main/resources/rcm-capability-service-api/schema/example</directory>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>rcm-capability-service-api</outputDirectory>
+            <directory>${project.basedir}/</directory>
+            <includes>
+                  <include>LICENSE.md</include>
+            </includes>
         </fileSet>
     </fileSets>
 </assembly>
