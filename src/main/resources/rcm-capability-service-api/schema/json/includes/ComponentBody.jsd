@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "Component body",
-  "description": "Component body.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
+  "description": "Component body.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n</p>",
   "properties": {
     "componentUuid": {
       "type": "string",

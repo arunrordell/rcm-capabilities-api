@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "AMQP properties properties",
-  "description": "AMQP properties.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
+  "description": "AMQP properties.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n</p>",
   "properties": {
     "timestamp": {
       "type": "string",
@@ -18,7 +18,7 @@
     "replyTo": {
       "type": "string",
       "title": "Reply-to identifier.",
-      "description": "Reply-to identifier. Default format is: '<sender-name>.<sender-host>'"
+      "description": "Reply-to identifier. Default format is: {@literal'<sender-name>.<sender-host>'}"
     }
   },
   "required": [
