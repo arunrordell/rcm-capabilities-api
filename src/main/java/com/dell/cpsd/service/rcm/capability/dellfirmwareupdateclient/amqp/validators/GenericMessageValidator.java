@@ -12,11 +12,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Generic message validator.
- * <p/>
- * Copyright © 2017 Dell Inc. or its subsidiaries. All Rights Reserved. Dell EMC Confidential/Proprietary Information
- * <p/>
  *
- * @version 1.0
+ * <p>
+ * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
+ * Dell EMC Confidential/Proprietary Information
+ * </p>
+ *
  * @since TBD
  */
 public abstract class GenericMessageValidator<R extends Object>

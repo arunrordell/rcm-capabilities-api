@@ -14,7 +14,6 @@ import java.util.ListResourceBundle;
  * Dell EMC Confidential/Proprietary Information
  * </p>
  *
- * @version 1.0
  * @since 1.0
  */
 public class DellFwuMessageBundle extends ListResourceBundle
