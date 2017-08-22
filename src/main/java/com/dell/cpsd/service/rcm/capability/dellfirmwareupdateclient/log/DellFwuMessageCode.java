@@ -13,12 +13,11 @@ import java.util.ResourceBundle;
 
 /**
  * This is the message code enum for the RCM compliance data client.
- * <p/>
+ * <p>
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * Dell EMC Confidential/Proprietary Information
  * </p>
  *
- * @version 1.0
  * @since 1.0
  */
 public enum DellFwuMessageCode

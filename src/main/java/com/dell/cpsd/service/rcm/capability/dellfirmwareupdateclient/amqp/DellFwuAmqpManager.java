@@ -35,12 +35,12 @@ import java.util.UUID;
 /**
  * This class is responsible for sending and processing messages to and from
  * the Remediation service.
+ *
  * <p>
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * Dell EMC Confidential/Proprietary Information
  * </p>
  *
- * @version 1.0
  * @since 1.0
  */
 @Component
@@ -98,6 +98,7 @@ public class DellFwuAmqpManager extends AbstractServiceCallbackManager implement
      * This returns the remediation data.
      *
      * @param systemUid The uid of the system.
+     * @param timeout DellFwuServiceException
      * @return The remediation response.
      * @throws DellFwuServiceException Thrown if the request fails.
      * @throws ServiceTimeoutException Thrown if the request fails.

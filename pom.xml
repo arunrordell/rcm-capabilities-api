@@ -14,7 +14,7 @@
     <parent>
         <groupId>com.dell.cpsd</groupId>
         <artifactId>root-parent</artifactId>
-        <version>0.2</version>
+        <version>1.0.1</version>
     </parent>
 
     <licenses>
@@ -24,12 +24,39 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Robert Dubisz</name>
+            <email>Robert.Dubisz@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/RobertDubiszDell</organizationUrl>
+        </developer>
+        <developer>
+            <name>Desmond Collins</name>
+            <email>desmond.collins@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/giddyelysium</organizationUrl>
+        </developer>
+        <developer>
+            <name>Purna Chamala</name>
+            <email>purna.chamala@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/chamap1</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jeff Cheng</name>
+            <email>jeffery.cheng@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/jccheng78</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.dell.cpsd</groupId>
                 <artifactId>common-dependencies</artifactId>
-                <version>1.1-SNAPSHOT</version>
+                <version>1.2.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -41,7 +68,7 @@
         <dependency>
             <groupId>com.dell.cpsd.common.client</groupId>
             <artifactId>common-client</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.3.0</version>
         </dependency>
 
         <!--  slf4j -->
@@ -163,7 +190,7 @@
                     <dependency>
                         <groupId>com.dell.cpsd.common.messaging</groupId>
                         <artifactId>common-contract-enricher</artifactId>
-                        <version>1.1-SNAPSHOT</version>
+                        <version>1.5.0</version>
                     </dependency>
                 </dependencies>
                 <executions>

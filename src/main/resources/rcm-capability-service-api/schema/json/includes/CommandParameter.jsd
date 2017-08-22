@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "Command Parameter",
-  "description": "Command Parameter.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n<p/>",
+  "description": "Command Parameter.\n<p>\nCopyright &copy; 2017 Dell Inc. or its subsidiaries. All Rights Reserved.\nDell EMC Confidential/Proprietary Information\n</p>",
   "properties": {
     "key": {
       "type": "string",

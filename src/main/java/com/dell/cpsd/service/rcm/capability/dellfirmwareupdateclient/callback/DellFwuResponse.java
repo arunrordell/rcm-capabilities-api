@@ -10,6 +10,7 @@ import com.dell.cpsd.service.rcm.capability.UpdateFirmwareResponse;
 
 /**
  * Dell Firmware update response.
+ *
  * <p>
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * Dell EMC Confidential/Proprietary Information

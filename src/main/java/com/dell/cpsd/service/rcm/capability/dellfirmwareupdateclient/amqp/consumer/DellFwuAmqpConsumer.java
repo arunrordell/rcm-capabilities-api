@@ -15,12 +15,12 @@ import com.dell.cpsd.service.rcm.capability.dellfirmwareupdateclient.log.DellFwu
 /**
  * This is the message consumer that handles responses from the Remediation service.
  * service.
- * <p/>
+ * <p>
  * Copyright &copy; 2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
  * Dell EMC Confidential/Proprietary Information
- * <p/>
+ * </p>
  *
- * @version 1.0
+ * 
  * @since 1.0
  */
 public class DellFwuAmqpConsumer extends UnhandledMessageConsumer implements IDellFwuAmqpConsumer
