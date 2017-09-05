@@ -1,4 +1,9 @@
 [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
+[![Build Status](https://travis-ci.org/dellemc-symphony/rcm-capabilities-api.svg?branch=master)](https://travis-ci.org/dellemc-symphony/rcm-capabilities-api)
+[![Slack](http://community.codedellemc.com/badge.svg)](https://codecommunity.slack.com/messages/symphony)
+[![Codecov](https://img.shields.io/codecov/c/github/dellemc-symphony/rcm-capabilities-api.svg)](https://codecov.io/gh/dellemc-symphony/rcm-capabilities-api)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.dell.cpsd/rcm-capabilities-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.dell.cpsd/rcm-capabilities-api)
+[![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 # rcm-capabilities-api
 ## Description
 The rcm-capabilities-api is used for providing all entry and response messages for rcm capabilities
@@ -19,32 +24,26 @@ The system should have RabbitMQ installed.
 For compilation Java and Maven should be installed.
 Preferred Java version oracle: "1.8.0_121".
 Preferred Maven version: Apache Maven 3.3.9 or greater·
-http://repo.vmo.lab:8080/artifactory/settings.xml of maven which is in .m2 directory should contain path to artifactory.
 
 Then run the following command:-
 mvn clean compile
-
-## Packaging
-For packaging Java and Maven should be installed.
-The system should be able to ping the following URL i.e. generally should be inside the EMC network.
-http://repo.vmo.lab:8080/artifactory/
-settings.xml of maven which is in .m2 directory should contain path to artifactory.
-
-Then run the following command:-
-mvn clean install
-
-## Deploying
-The output after packaging is a jar.
-It should not be run in standalone.
-It is used generally with services which need to consume this api.
-
-Command Usage:-
-No main Program currently this project is in use in an internal DellEMC project based on RackHD.
 
 ## Testing
 Unit tests are run as part of the mvn packaging
 Project is auto built in Jenkins with automation tests
 
 ## Contributing
+Project Symphony is a collection of services and libraries housed at [GitHub][github].
+ 
+Contribute code and make submissions at the relevant GitHub repository level. See [our documentation][contributing] for details on how to contribute.
 ## Community
-## Licensing
+Reach out to us on the Slack [#symphony][slack] channel by requesting an invite at [{code}Community][codecommunity].
+ 
+You can also join [Google Groups][googlegroups] and start a discussion.
+ 
+[slack]: https://codecommunity.slack.com/messages/symphony
+[googlegroups]: https://groups.google.com/forum/#!forum/dellemc-symphony
+[codecommunity]: http://community.codedellemc.com/
+[contributing]: http://dellemc-symphony.readthedocs.io/en/latest/contributingtosymphony.html
+[github]: https://github.com/dellemc-symphony
+[documentation]: https://dellemc-symphony.readthedocs.io/en/latest/

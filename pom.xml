@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dell.cpsd</groupId>
     <name>RCM Capabilities RackHD Service API</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <artifactId>rcm-capability-service-api</artifactId>
 
     <parent>
@@ -36,6 +36,12 @@
             <email>desmond.collins@dell.com</email>
             <organization>com.dell.cpsd</organization>
             <organizationUrl>https://github.com/giddyelysium</organizationUrl>
+        </developer>
+        <developer>
+            <name>Linjong Fogarty</name>
+            <email>linjong.fogarty@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/fogarl1</organizationUrl>
         </developer>
         <developer>
             <name>Purna Chamala</name>

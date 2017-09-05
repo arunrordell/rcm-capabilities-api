@@ -1,12 +1,11 @@
-UPSTREAM_JOBS_LIST = [
-    "vce-symphony/common-dependencies/${env.BRANCH_NAME}",
-    "vce-symphony/common-client-parent/${env.BRANCH_NAME}"
-]
-UPSTREAM_JOBS = UPSTREAM_JOBS_LIST.join(',')
+UPSTREAM_TRIGGERS = getUpstreamTriggers([
+    "common-client-parent"
+    "common-dependencies"
+])
 
 pipeline {    
     triggers {
-        upstream(upstreamProjects: UPSTREAM_JOBS, threshold: hudson.model.Result.SUCCESS)
+        upstream(upstreamProjects: UPSTREAM_TRIGGERS, threshold: hudson.model.Result.SUCCESS)
     }
     agent {
         node {
@@ -49,13 +48,16 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                expression {
-                    return env.BRANCH_NAME ==~ /master|develop|release\/.*/
-                }
-            }
             steps {
-                sh "mvn deploy -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true"
+                script {
+                    if (env.BRANCH_NAME ==~ /stable.*/) {
+                        withCredentials([string(credentialsId: 'GPG-Dell-Key', variable: 'GPG_PASSPHRASE')]) {
+                            sh "mvn deploy -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true -Ppublish-release -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.keyname=73BD7C5F -DskipJavadoc=false -DskipJavasource=false"
+                        }
+                    } else {
+                        sh "mvn deploy -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true"
+                    }
+                }
             }
         }
         stage('SonarQube Analysis') {
