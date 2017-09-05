@@ -6,7 +6,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.dell.cpsd.service.rcm.capability</groupId>
+    <groupId>com.dell.cpsd</groupId>
     <name>RCM Capabilities RackHD Service API</name>
     <version>1.1-SNAPSHOT</version>
     <artifactId>rcm-capability-service-api</artifactId>
@@ -49,7 +49,19 @@
             <organization>com.dell.cpsd</organization>
             <organizationUrl>https://github.com/jccheng78</organizationUrl>
         </developer>
+        <developer>
+            <name>Peter Schami</name>
+            <email>peter.schami@dell.com</email>
+            <organization>com.dell.cpsd</organization>
+            <organizationUrl>https://github.com/pschami</organizationUrl>
+        </developer>
     </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/dellemc-symphony/rcm-capabilities-api.git</connection>
+        <developerConnection>scm:git:git://github.com/dellemc-symphony/rcm-capabilities-api.git</developerConnection>
+        <url>https://github.com/dellemc-symphony/rcm-capabilities-api/tree/master</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -269,7 +281,14 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
