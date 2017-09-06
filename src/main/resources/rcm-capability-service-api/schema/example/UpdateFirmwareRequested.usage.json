@@ -17,8 +17,7 @@
       "replyTo": "paqx.localhost"
     },
     "componentBody": {
-      "componentIdentifier": "24:6e:96:18:11:8a",
-      "componentUuid": "111111"
+      "componentUuid": "1268d1e7-eff7-3439-832a-e0e22ceb98b4"
     },
     "commandBody": {
       "CommandType": "UpdateFirmware",
@@ -34,14 +33,6 @@
         {
           "key": "EmulateWorkflow",
           "value": "off"
-        },
-        {
-          "key": "CurrentVersion",
-          "value": "1.2.3"
-        },
-        {
-          "key": "UpdatedVersion",
-          "value": "1.2.4"
         }
       ]
     }
