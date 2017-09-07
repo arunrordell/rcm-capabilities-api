@@ -1,5 +1,5 @@
 UPSTREAM_TRIGGERS = getUpstreamTriggers([
-    "common-client-parent"
+    "common-client-parent",
     "common-dependencies"
 ])
 
@@ -33,8 +33,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 doCheckout()
-	    }
-	}
+            }
+        }
         stage('Compile') {
             steps {
                 sh "mvn clean install -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true"
