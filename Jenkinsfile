@@ -35,14 +35,9 @@ pipeline {
                 doCheckout()
             }
         }
-        stage('Compile') {
+        stage('Build') {
             steps {
-                sh "mvn clean install -Dmaven.repo.local=.repo -DskipTests=true -DskipITs=true"
-            }
-        }
-        stage('Unit Testing') {
-            steps {
-                sh "mvn test -Dmaven.repo.local=.repo"
+                sh "mvn clean install -Dmaven.repo.local=.repo"
             }
         }
         stage('Record Test Results') {
@@ -62,7 +57,6 @@ pipeline {
         }
         stage('NexB Scan') {
             steps {
-                sh 'rm -rf .repo'
                 doNexbScanning()
             }
         }
