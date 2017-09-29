@@ -4,42 +4,42 @@
 [![Codecov](https://img.shields.io/codecov/c/github/dellemc-symphony/rcm-capabilities-api.svg)](https://codecov.io/gh/dellemc-symphony/rcm-capabilities-api)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.dell.cpsd/rcm-capabilities-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.dell.cpsd/rcm-capabilities-api)
 [![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
+
 # rcm-capabilities-api
+
 ## Description
-The rcm-capabilities-api is used for providing all entry and response messages for rcm capabilities
-examples include:
-Upgrading of firmware for Dell iDRAC.
-Upgrading of firmware for Dell r730 server.
+Use this repository to provide all entry and response messages for RCM capabilities such as: 
+* Upgrading firmware for Dell iDRAC.
+* Upgrading firmware for Dell R730 server.
 
 ## Documentation
+You can find additional documentation for Project Symphony at [dellemc-symphony.readthedocs.io][documentation].
 
 ## API overview
-See resources folder of project for json messages, these are built automatically via Maven into Java source.
+See the resources folder of project for json messages, these are built automatically via Maven into Java source.
 
 ## Before you begin
-The system should have Java Runtime Environment installed.
-The system should have RabbitMQ installed.
+Verify that the following tools are installed: 
+* Java Runtime Environment
+* RabbitMQ
 
 ## Building
-For compilation Java and Maven should be installed.
-Preferred Java version oracle: "1.8.0_121".
-Preferred Maven version: Apache Maven 3.3.9 or greater·
-
-Then run the following command:-
-mvn clean compile
-
-## Testing
-Unit tests are run as part of the mvn packaging
-Project is auto built in Jenkins with automation tests
+Run the following command to build this project:
+```bash
+mvn clean install
+```
 
 ## Contributing
 Project Symphony is a collection of services and libraries housed at [GitHub][github].
+ 
  
 Contribute code and make submissions at the relevant GitHub repository level. See [our documentation][contributing] for details on how to contribute.
 ## Community
 Reach out to us on the Slack [#symphony][slack] channel by requesting an invite at [{code}Community][codecommunity].
  
+ 
 You can also join [Google Groups][googlegroups] and start a discussion.
+ 
  
 [slack]: https://codecommunity.slack.com/messages/symphony
 [googlegroups]: https://groups.google.com/forum/#!forum/dellemc-symphony
