@@ -16,12 +16,13 @@ Use this repository to provide all entry and response messages for RCM capabilit
 You can find additional documentation for Project Symphony at [dellemc-symphony.readthedocs.io][documentation].
 
 ## API overview
-See the resources folder of project for json messages, these are built automatically via Maven into Java source.
+See the resources folder of project for `json` messages, these are built automatically via Maven into Java source.
 
 ## Before you begin
-Verify that the following tools are installed: 
-* Java Runtime Environment
-* RabbitMQ
+Verify that the following tools are installed:
+ 
+* Apache Maven 3.0.5+
+* Java Development Kit (version 8)
 
 ## Building
 Run the following command to build this project:
