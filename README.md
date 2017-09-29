@@ -10,13 +10,13 @@
 ## Description
 Use this repository to provide all entry and response messages for RCM capabilities such as: 
 * Upgrading firmware for Dell iDRAC.
-* Upgrading firmware for Dell R730 server.
+* Upgrading firmware for a Dell R730 server.
 
 ## Documentation
 You can find additional documentation for Project Symphony at [dellemc-symphony.readthedocs.io][documentation].
 
 ## API overview
-See the resources folder of project for `json` messages, these are built automatically via Maven into Java source.
+See the project resources folder for `json` messages, these are built automatically via Maven into Java source.
 
 ## Before you begin
 Verify that the following tools are installed:
