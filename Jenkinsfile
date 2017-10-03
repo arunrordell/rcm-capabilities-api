@@ -4,10 +4,7 @@ UPSTREAM_TRIGGERS = [
 ]
 properties(getBuildProperties(upstreamRepos: UPSTREAM_TRIGGERS))
 
-pipeline {    
-    parameters {
-        choice(choices: 'OFF\nON', description: 'Please select appropriate flag (master and stable branches will always be ON)', name: 'Deploy_Stage')
-    }
+pipeline {   
     agent {
         node {
             label 'maven-builder'
@@ -31,9 +28,15 @@ pipeline {
                 doCheckout()
             }
         }
-        stage('Build') {
+         stage('Build') {
             steps {
-                sh "mvn clean install -Dmaven.repo.local=.repo"
+                script {
+                    if (env.BRANCH_NAME ==~ /master|stable\/.*/) {
+                        sh "mvn clean deploy -Dmaven.repo.local=.repo"
+                    } else {
+                        sh "mvn clean install -Dmaven.repo.local=.repo"
+                    }
+                }
             }
         }
         stage('Record Test Results') {
@@ -41,11 +44,7 @@ pipeline {
                 junit '**/target/*-reports/*.xml'
             }
         }
-        stage('Deploy') {
-            steps {
-               doMvnDeploy()
-             }
-        }
+  
         stage('SonarQube Analysis') {
             steps {
                 doSonarAnalysis()    
