@@ -28,11 +28,6 @@ pipeline {
                 doCheckout()
             }
         }
-        stage('Build') {
-            steps {
-                sh "mvn clean install -Dmaven.repo.local=.repo"
-            }
-        }
          stage('Build') {
             steps {
                 script {
