@@ -294,11 +294,7 @@
            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>${project.basedir}/src/main/resources/rcm-compliance-data-service-api</exclude>
-                    </excludes>
-                </configuration>
+                <version>3.0.2</version>
             </plugin>
 
             <plugin>
@@ -338,6 +334,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                  <executions>
+                      <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
+                       </execution>
+                  </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
