@@ -294,11 +294,7 @@
            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>${project.basedir}/src/main/resources/rcm-compliance-data-service-api</exclude>
-                    </excludes>
-                </configuration>
+                <version>3.0.2</version>
             </plugin>
 
             <plugin>
